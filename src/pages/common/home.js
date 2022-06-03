@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FaBeer, FaBars, FaTimes, FaAndroid } from 'react-icons/fa';
 import ReactLoading from 'react-loading';
 import { useNavigate } from 'react-router-dom';
-import LoadingOverlay from 'react-loading-overlay';
 let color = "#ff9334";
 let type = "spinningBubbles";
 
@@ -45,10 +44,6 @@ const Home = () => {
 
     return (
         <div>
-              <LoadingOverlay
-        active={overlaystatus}
-        spinner={<ReactLoading type={type} color={color} height={200} width={100} />}
-    >
             <div className="homenav">
                 {displaysidenav &&
                     <div className="sidemenu">
@@ -107,7 +102,6 @@ const Home = () => {
             <div className="space">
 
             </div>
-            </LoadingOverlay>
 
             <div style={{ backgroundColor: "#2b1e16" }}>
                 <div className="homemiddlemobile">
