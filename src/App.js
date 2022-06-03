@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Footer from "./pages/common/footer";
+import Home from "./pages/common/home";
+import "./css/style.css";
+import Login from "./pages/common/login";
+import Signup from "./pages/common/signup";
+import Fetchfoods from "./pages/Account/fetchfoods";
 
-function App() {
+
+
+const App = () => {
+  document.title = "Dotdelivery";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+    <Router>
+      <div className="mainbody">
+        <Routes>
+          <Route path="/" element={<Home />} exact />
+          <Route path="/login" element={<Login/>} exact />
+          <Route path="/signup" element={<Signup/>} exact />
+          <Route path="/fetchfoods" element={<Fetchfoods/>} exact />
+        </Routes>
+      </div>
+
+      <Footer />
+    </Router>
+  )
+};
 
 export default App;

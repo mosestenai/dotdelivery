@@ -1,0 +1,112 @@
+.footer {
+    background-color: #333333;
+    width: 103%;
+    margin-left: -10px;
+    margin-bottom: -10px;
+    overflow-x: hidden
+}
+
+.footerheader {
+    margin-left: 5%;
+    display: flex;
+    padding-bottom: 20px;
+}
+
+.subscribediv {
+    margin-left: 200px;
+    margin-top: 5px;
+}
+
+.subscribeinputdiv {
+    display: flex;
+}
+
+.subscribeinput {
+    border: none transparent;
+    outline: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.subscribebutton {
+    background-color: #ff9334;
+    color: white;
+    height: 30px;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+}
+
+.wraplinksdiv {
+    background-color: #1b1c1e;
+    display: flex;
+    padding-left: 5%;
+    padding-bottom: 1%;
+}
+
+.linkdiv {
+    width: 30%;
+}
+
+.linkdiv a {
+    color: white;
+    display: block;
+    margin: 8px 0px 0px 0px;
+    cursor: pointer;
+}
+
+.linkdiv a:hover {
+    color: #ff9334;
+}
+
+.copyright {
+    color: white;
+    font-weight: bold;
+    padding-left: 5%;
+    padding-bottom: 4%;
+    background-color: #1b1c1e;
+}
+
+/* mobile view*/
+@media only screen and (max-width : 780px) {
+    .footer {
+        background-color: #333333;
+        width: 103%;
+        margin-left: -10px;
+        margin-bottom: -10px;
+        overflow-x: hidden
+    }
+
+    .footerheader {
+        margin-left: 2%;
+        display: block;
+        padding-bottom: 20px;
+    }
+
+    .subscribediv {
+        margin-left: 10px;
+        margin-top: 5px;
+    }
+
+    .wraplinksdiv {
+        background-color: #1b1c1e;
+        display: block;
+        padding-left: 5%;
+        padding-bottom: 1%;
+    }
+
+    .linkdiv {
+        width: 50%;
+    }
+
+    .copyright {
+        color: white;
+        font-weight: bold;
+        padding-left: 5%;
+        padding-top: 20px;
+        padding-bottom: 4%;
+        background-color: #1b1c1e;
+    }
+
+}

@@ -1,0 +1,492 @@
+.mainbody {
+    width: 103%;
+    background-image: url("./../assets/background2.jpg");
+    margin-top: -15px;
+    margin-right: 0px;
+    margin-left: -10px;
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+}
+
+.loginbutton {
+    border: none;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    height: 50px;
+    margin-left: 75%;
+    padding: 5px 20px 5px 20px;
+    cursor: pointer;
+}
+
+.signupbutton {
+    border: none;
+    background-color: #ff9334;
+    color: white;
+    height: 50px;
+    margin-left: 5px;
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+    cursor: pointer;
+}
+
+.homenav {
+    display: flex;
+    padding-top: 20px;
+
+}
+
+.favourite {
+    margin-top: 30px;
+    margin-left: 5%;
+    font-size: 35px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.deliverylocation {
+    background-color: white;
+    border-radius: 5px;
+    padding: 3px 10px 30px 10px;
+    margin-left: 5%;
+    width: 50%;
+    display: flex;
+}
+
+.iteratedata {
+    padding-left: 50px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.iteratedatabelow {
+    font-size: 20px;
+    font-weight: bold;
+    color: silver;
+}
+
+.deliverylocationinput {
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none transparent;
+    height: 30px;
+    border: 1px solid #ff9334;
+    border-right: none;
+    outline: none;
+}
+
+.wrapform {
+    margin-left: 50px;
+    display: flex;
+    height: 51px;
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+}
+
+.searchfoodbutton {
+    background-color: #ff9334;
+    color: white;
+    height: 52px;
+    border: none;
+    margin-left: -1px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+}
+
+.locateme {
+    border: none;
+    background-color: white;
+    height: 52px;
+    margin-left: 0px;
+    border-top: 1px solid #ff9334;
+    border-bottom: 1px solid #ff9334;
+    font-size: 20;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.locateme:hover {
+    background-color: silver;
+}
+
+.space {
+    height: 110px;
+}
+
+.googleappdiv {
+    background-color: white;
+    width: 100%;
+    padding-left: 5%;
+    padding-top: 50px;
+    display: flex;
+}
+
+.appdescription {
+    font-size: 35px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.appdescriptionbelow {
+    font-size: 25px;
+}
+
+.googlebutton {
+    margin-left: 150px;
+}
+
+.homemiddlemobile {
+    display: none;
+}
+
+.barsicon {
+    margin-left: 5%;
+    font-size: 30px;
+    cursor: pointer;
+    color: #ff9334;
+}
+
+.sidemenu {
+    position: fixed;
+    padding-top: 5px;
+    width: 25%;
+    background-color: white;
+    padding-left: 20px;
+    padding-bottom: 50px;
+   
+}
+
+
+.sidelogin {
+    border: none;
+    background-color: silver;
+    color: black;
+    height: 50px;
+    width: 80%;
+    margin-top: 30px;
+    padding: 5px 15px 5px 15px;
+    cursor: pointer;
+}
+
+.sidesignup {
+    border: none;
+    background-color: black;
+    color: white;
+    width: 80%;
+    height: 50px;
+    padding: 5px 15px 5px 15px;
+    cursor: pointer;
+}
+
+.sidecancel {
+    position: absolute;
+    margin-left: 87%;
+    color: #ff9334;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.sidelinks a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.sidelinks a:hover {
+    color: #ff9334;
+}
+.sidewrap{
+    padding-bottom: 230px;
+}
+
+.sideappmenu{
+    display: flex;
+}
+.sideappicon{
+    height: 80px;
+}
+.sideappdescription{
+    margin-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.platformlinks{
+    padding: 10px 20px 10px 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 20%;
+    display: flex;
+    cursor: pointer;
+    background-color: silver;
+}
+.androidlink{
+border: none;
+cursor: pointer;
+background-color: silver;
+}
+
+/* mobile view*/
+@media only screen and (max-width : 653px) {
+    .platformlinks{
+        padding: 10px 20px 10px 20px;
+        margin-top: 10px;
+        border-radius: 10px;
+        width: 30%;
+        display: flex;
+        cursor: pointer;
+        background-color: silver;
+    }
+    .sidewrap{
+        padding-bottom: 50px;
+    }
+    .googlebutton {
+        margin-left: 15%;
+    }
+    
+    .mainbody {
+        width: 103%;
+        background-image: url("./../assets/phonebg.jpg");
+        margin-top: -15px;
+        margin-right: 0px;
+        margin-left: -10px;
+        overflow-x: hidden
+    }
+    
+    .sidecancel {
+        position: absolute;
+        margin-left: 80%;
+        color: #ff9334;
+        font-size: 25px;
+        cursor: pointer;
+    }
+    .sidemenu {
+        position: fixed;
+        padding-top: 15px;
+        width: 80%;
+        background-color: white;
+        padding-left: 20px;
+        padding-bottom: 50px;
+        margin-top: -20px;
+       
+    }
+
+    .deliverylocation {
+        background-color: white;
+        border-radius: 5px;
+        padding: 3px 10px 30px 10px;
+        margin-left: 2%;
+        width: 90%;
+        display: block;
+    }
+
+    .wrapform {
+        margin-left: 5px;
+        height: 51px;
+        border-right: none;
+        border-top-left-radius: 5px;
+        width: 100%;
+        border-bottom-left-radius: 5px;
+
+    }
+
+    .iteratedata {
+        padding-left: 10px;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    
+
+    .deliverylocationinput {
+        width: 50%;
+    }
+
+    .searchfoodbutton {
+        background-color: #ff9334;
+        color: white;
+        height: 52px;
+        width: 23%;
+        border: none;
+        margin-left: -1px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        cursor: pointer;
+    }
+
+    .homemiddlepic {
+        display: none;
+    }
+
+    .homemiddlemobile {
+        display: inline;
+        background-color: #2b1e16;
+        width: 100%;
+    }
+
+    .steps {
+        width: 100%;
+        background-color: #2b1e16;
+
+    }
+
+    .googleappdiv {
+        display: block;
+    }
+
+}
+
+@media only screen and (min-width : 400px) and (max-width : 653px) {
+    .loginbutton {
+        border: none;
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        height: 50px;
+        margin-left: 60%;
+        padding: 5px 20px 5px 20px;
+        cursor: pointer;
+    }
+
+}
+@media only screen and  (max-width : 400px){
+    .loginbutton {
+        border: none;
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        height: 50px;
+        margin-left: 43%;
+        padding: 5px 20px 5px 20px;
+        cursor: pointer;
+    }
+
+}
+
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-width : 653px) and (max-width : 1024px) {
+    .platformlinks{
+        padding: 10px 20px 10px 20px;
+        margin-top: 10px;
+        border-radius: 10px;
+        width: 30%;
+        display: flex;
+        cursor: pointer;
+        background-color: silver;
+    }
+    .sidewrap{
+        padding-bottom: 50px;
+    }
+    .googlebutton {
+        margin-left: 15%;
+    }
+    
+    .mainbody {
+        width: 103%;
+        background-image: url("./../assets/tabletbg.jpg");
+        margin-top: -15px;
+        margin-right: 0px;
+        margin-left: -10px;
+        overflow-x: hidden
+    }
+    
+    .sidecancel {
+        position: absolute;
+        margin-left: 80%;
+        color: #ff9334;
+        font-size: 25px;
+        cursor: pointer;
+    }
+    .sidemenu {
+        position: fixed;
+        padding-top: 15px;
+        width: 80%;
+        background-color: white;
+        padding-left: 20px;
+        padding-bottom: 50px;
+        margin-top: -20px;
+       
+    }
+
+    .loginbutton {
+        border: none;
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        height: 50px;
+        margin-left: 70%;
+        padding: 5px 20px 5px 20px;
+        cursor: pointer;
+    }
+
+    .deliverylocation {
+        background-color: white;
+        border-radius: 5px;
+        padding: 3px 10px 30px 10px;
+        margin-left: 2%;
+        width: 60%;
+        display: block;
+    }
+
+    .wrapform {
+        margin-left: 5px;
+        height: 51px;
+        border-right: none;
+        border-top-left-radius: 5px;
+        width: 100%;
+        border-bottom-left-radius: 5px;
+
+    }
+
+    .iteratedata {
+        padding-left: 10px;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    
+
+    .deliverylocationinput {
+        width: 50%;
+    }
+
+    .searchfoodbutton {
+        background-color: #ff9334;
+        color: white;
+        height: 52px;
+        width: 23%;
+        border: none;
+        margin-left: -1px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        cursor: pointer;
+    }
+
+    .homemiddlepic {
+        display: none;
+    }
+
+    .homemiddlemobile {
+        display: inline;
+        background-color: #2b1e16;
+        width: 100%;
+    }
+
+    .steps {
+        width: 100%;
+        background-color: #2b1e16;
+
+    }
+
+    .googleappdiv {
+        display: block;
+    }
+    
+
+}

@@ -1,0 +1,153 @@
+.loginheader {
+    background-color: black;
+    width: 100%;
+    display:flex;
+}
+
+.loginheaderimage {
+    width: 100px;
+    height: 100px;
+    margin-left: 5%;
+}
+.headermessage{
+    margin-left: 35%;
+    color: white;
+    margin-top: 30px;
+}
+
+.loginform {
+    background-color: white;
+    width: 30%;
+    margin: 0 auto;
+    border-radius: 5px;
+    margin-top: 100px;
+    padding-top: 20px;
+    padding-left: 5%;
+}
+
+.loginquestion {
+    font-size: 25px;
+
+}
+
+.logininput {
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none transparent;
+    outline: none;
+    width: 70%;
+    background-color: rgb(219, 218, 218);
+}
+
+.continuedetails {
+    margin-top: 20px;
+    font-size: 15px;
+    color: rgb(131, 130, 130);
+}
+
+.nextbutton {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 52%;
+    margin-right: 25%;
+    padding: 10px 10px 10px 15px;
+    border-radius: 10px;
+}
+
+.codeinput {
+    padding: 10px;
+    border-radius: 5px;
+    border: none transparent;
+    outline: none;
+    width: 8%;
+    height: 30px;
+    margin-right: 3px;
+    font-size: 25px;
+    text-align: center;
+    background-color: rgb(219, 218, 218)
+}
+
+.navformbuttons {
+    margin-top: 30px;
+    padding-bottom: 20px;
+    display: flex;
+}
+
+.navformbackbutton {
+    background-color: rgb(219, 218, 218);
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+.navformbackbutton:hover{
+    background-color: rgb(211, 210, 210);
+}
+
+.navformnextbutton {
+    margin-left: 60%;
+    border-radius: 10px;
+    padding: 10px 10px 0px 10px;
+}
+.resendbutton{
+    border:none;
+    background-color: rgb(219, 218, 218);
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.resendbutton:hover{
+    background-color: rgb(211, 210, 210);
+}
+
+.confirmbuttonyes{
+    background-color: rgb(219, 218, 218);
+    width: 90%;
+    text-align: center;
+    margin-top: 10px;
+    border:none;
+    height: 30px;
+    cursor: pointer;
+}
+
+.confirmbuttonno{
+    margin-top: 10px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    width: 90%;
+    height: 30px;
+    border:none;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+/* mobile view*/
+@media only screen and (max-width : 780px) {
+    .loginform {
+        background-color: white;
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 5px;
+        margin-top: 50px;
+        padding-top: 20px;
+        padding-left: 10%;
+    }
+
+    .nextbutton {
+        display: flex;
+        margin-top: 50px;
+        margin-left: 52%;
+        margin-right: 15%;
+        padding: 10px 10px 10px 15px;
+        border-radius: 10px;
+    }
+    .navformnextbutton {
+        margin-left: 50%;
+        border-radius: 10px;
+        padding: 10px 10px 0px 10px;
+    }
+}
