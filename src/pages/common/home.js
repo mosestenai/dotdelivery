@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FaBeer, FaBars, FaTimes, FaAndroid } from 'react-icons/fa';
-import LoadingOverlay from 'react-loading-overlay'
 import ReactLoading from 'react-loading';
 import { useNavigate } from 'react-router-dom';
 
