@@ -9,7 +9,7 @@ import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
 import { getSessionUser } from "./../Utils/common";
-import { collection, getDocs } from "@firebase/firestore"
+import { collection, getDocs,query,where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
 
 
@@ -54,7 +54,7 @@ const Fetchfoods = () => {
     }, [])
 
 
-
+  
 
 
     return (

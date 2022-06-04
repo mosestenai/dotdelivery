@@ -4,7 +4,8 @@ import "./../../css/login.css"
 import { } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase-config";
+import { auth ,db} from "../../firebase-config";
+import { collection, getDocs,query,where } from "@firebase/firestore"
 import {setUserSession} from "./../Utils/common";
 
 let color = "#ff9334";
@@ -21,6 +22,23 @@ const Login = () => {
 
     document.body.style.overflow = 'auto';
 
+    const getUser = (email) => {
+        const getuse = query(collection(db, "users"), where("email", "==", email));
+
+        getDocs(getuse).then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                // doc.data() is never undefined for query doc snapshots
+                setUserSession((doc.id,"=>",doc.data()))
+                setloading(false)
+                navigate("/fetchfoods")
+            });
+        })
+            .catch(function (error) {
+                seterror("Error getting documents: ", error);
+            });
+    }
+
+
     const handlelogin = async () => {
         seterror(null)
         if (!email || !password) {
@@ -30,12 +48,8 @@ const Login = () => {
             try {
                 const user = await signInWithEmailAndPassword(auth, email, password);
 
-                console.log(user)
-
                 if (user.user.email) {
-                    setloading(false)
-                    setUserSession(user.user)
-                    navigate("/fetchfoods")
+                  getUser(user.user.email)
                 } else {
                     setloading(false)
                     seterror("there was an internal error. contact admin")

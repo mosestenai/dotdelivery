@@ -5,22 +5,22 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "./../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setUserSession } from "./../Utils/common";
+import { collection, getDocs,query,where } from "@firebase/firestore"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import { db } from "./../../firebase-config";
 
 
 const Signup = () => {
 
     const [email, setemail] = useState('');
     const [phone, setphone] = useState('');
-    const [value1, setvalue1] = useState('');
-    const [value2, setvalue2] = useState('');
-    const [value3, setvalue3] = useState('');
     const [password1, setpassword1] = useState('');
     const [password2, setpassword2] = useState('');
     const [loading, setloading] = useState('');
 
-    const [value, setValue] = useState()
+    const [latitude, setlatitude] = useState('');
+    const [longitude, setlongitude] = useState('');
 
     const navigate = useNavigate();
 
@@ -38,8 +38,21 @@ const Signup = () => {
     const [showback, setshowback] = useState(false);
 
     useEffect(() => {
-
+        getlocation();
     }, []);
+
+    const getlocation = () => {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                setlatitude(position.coords.latitude)
+                setlongitude(position.coords.longitude)
+            },
+            function (error) {
+                seterror(error.message + ". PLease allow location to continue");
+            }
+        );
+
+    }
 
 
 
@@ -50,7 +63,6 @@ const Signup = () => {
         if (!phone) {
 
         } else {
-            console.log(phone)
             var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
             if (re.test(phone)) {
                 setfirst(false)
@@ -79,15 +91,35 @@ const Signup = () => {
 
     }
 
+    const getUser = (email) => {
+        const getuse = query(collection(db, "users"), where("email", "==", email));
+
+        getDocs(getuse).then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                // doc.data() is never undefined for query doc snapshots
+                setUserSession((doc.id,"=>",doc.data()))
+                setloading(false)
+                navigate("/fetchfoods")
+            });
+        })
+            .catch(function (error) {
+                seterror("Error getting documents: ", error);
+            });
+    }
+
 
 
     const handlesignup = async () => {
+        setloading(true)
 
         if (!email || !password1 || !password2) {
 
         }
         else if (password1 !== password2) {
             seterror("passwords provided do not match")
+        }
+        else if(!latitude || !longitude){
+            getlocation();
         }
         else {
 
@@ -99,9 +131,8 @@ const Signup = () => {
                 );
 
                 if (user.user.email) {
-                    setloading(false)
-                    setUserSession(user.user)
-                    navigate("/fetchfoods")
+                   
+                    getUser(user.user.email)
                 } else {
                     setloading(false)
                     seterror("there was an internal error. contact admin")
