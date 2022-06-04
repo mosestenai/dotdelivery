@@ -39,3 +39,8 @@ export const setMenuSessionId = (menuid) => {
     sessionStorage.setItem("menu", JSON.stringify(menuid));
 }
 
+//logout 
+export const logoutUser = () =>{
+    localStorage.removeItem("user")
+}
+

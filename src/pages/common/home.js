@@ -61,10 +61,10 @@ const Home = () => {
                         <button className="sidesignup" onClick={()=>navigate('/signup')}>SIGN UP</button><br /><br />
                         <div className="sidewrap">
                             <div className="sidelinks">
-                                <a href="">Create a business account</a>
-                                <a href="">Add your restaurant</a>
-                                <a href="">Sign up to deliver</a>
-                                <a href="">Faqs</a>
+                                <div >Create a business account</div>
+                                <div>Add your restaurant</div>
+                                <div>Sign up to deliver</div>
+                                <div>Faqs</div>
                             </div>
                         </div>
                         <div className="sideappmenu">

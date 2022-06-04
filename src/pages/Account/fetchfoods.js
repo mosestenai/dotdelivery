@@ -8,7 +8,7 @@ import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getSessionUser, setMenuSessionId, getLocalStorageUser } from "./../Utils/common";
+import { getSessionUser, setMenuSessionId, getLocalStorageUser, logoutUser } from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
 import Geocode from "react-geocode";
@@ -42,6 +42,9 @@ const Fetchfoods = () => {
 
     const restaurantscollectionRef = collection(db, "branches");
     const menucollection = collection(db, "menus")
+    if(!user){
+        navigate("/")
+    }
 
 
     useEffect(() => {
@@ -156,15 +159,18 @@ const Fetchfoods = () => {
                         </div>
                         <div className="sidewrap2">
                             <div className="sidelinks">
-                                <a href=""><FaUser className="link-icons" /> Profile details</a>
-                                <a href=""><FaClock className="link-icons" />My Orders</a>
-                                <a href=""><FaFacebookMessenger className="link-icons" />My chats</a>
-                                <a href=""><FaIdCard className="link-icons" />Payment details</a>
-                                <a href=""><FaLocationArrow className="link-icons" />Delivery Address</a>
-                                <a href=""><FaAndroid className="link-icons" />Help</a>
-                                <a href=""><FaQuestionCircle className="link-icons" />Frequently asked questions</a>
-                                <a href=""><FaFile className="link-icons" />Terms of Service</a>
-                                <a href=""><FaSignOutAlt className="link-icons" />Sign Out</a>
+                                <div><FaUser className="link-icons" /> Profile details</div>
+                                <div><FaClock className="link-icons" />My Orders</div>
+                                <div><FaFacebookMessenger className="link-icons" />My chats</div>
+                                <div><FaIdCard className="link-icons" />Payment details</div>
+                                <div><FaLocationArrow className="link-icons" />Delivery Address</div>
+                                <div><FaAndroid className="link-icons" />Help</div>
+                                <div><FaQuestionCircle className="link-icons" />Frequently asked questions</div>
+                                <div><FaFile className="link-icons" />Terms of Service</div>
+                                <div onClick={()=>{
+                                    logoutUser();
+                                    navigate("/");
+                                }} ><FaSignOutAlt className="link-icons" />Sign Out</div>
                             </div>
                         </div>
                         <div className="sideappmenu">

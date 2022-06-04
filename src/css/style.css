@@ -191,14 +191,15 @@
     cursor: pointer;
 }
 
-.sidelinks a {
+.sidelinks div {
     display: block;
     margin-top: 10px;
+    cursor: pointer;
     text-decoration: none;
     color: black;
 }
 
-.sidelinks a:hover {
+.sidelinks div:hover {
     color: #ff9334;
 }
 .sidewrap{
