@@ -96,7 +96,7 @@ const Fetchfoods = () => {
 
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey("AIzaSyB4Tle4NUq0FQmy8pxMUWsMOOMwVNqt00M");
+Geocode.setApiKey("");
 
 // set response language. Defaults to english.
 Geocode.setLanguage("en");

@@ -11,10 +11,10 @@ let type = "spinningBubbles";
 const Home = () => {
 
     const user = getSessionUser()
+    const navigate = useNavigate();
     if(user){
         navigate("./fetchfoods")
     }
-    const navigate = useNavigate();
 
     const list = [
         'Unexpected guests?',
