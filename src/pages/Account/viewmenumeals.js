@@ -1,14 +1,16 @@
 import React from "react";
 import { useLocation,useNavigate } from "react-router-dom";
+import { getMenuSessionId } from "../Utils/common";
 
 const Viewmenumeals = () =>{
 
-    const location = useLocation();
-    const path = location.pathname.split("/")[2]; 
+    const menuid = getMenuSessionId();
+
+    
 
     return(
         <div>
-         <h1> {path}</h1>  
+         <h1> {menuid}</h1>  
         </div>
     )
 }

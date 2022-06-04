@@ -4,7 +4,7 @@ import "./../../css/login.css"
 import { useNavigate } from "react-router-dom";
 import { auth } from "./../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setUserSession } from "./../Utils/common";
+import { setUserSession,setLocalStorageUser } from "./../Utils/common";
 import { collection, getDocs,query,where } from "@firebase/firestore"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
@@ -97,7 +97,7 @@ const Signup = () => {
         getDocs(getuse).then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 // doc.data() is never undefined for query doc snapshots
-                setUserSession((doc.id,"=>",doc.data()))
+                setLocalStorageUser((doc.id,"=>",doc.data()))
                 setloading(false)
                 navigate("/fetchfoods")
             });

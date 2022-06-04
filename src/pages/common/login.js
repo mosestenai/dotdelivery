@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth ,db} from "../../firebase-config";
 import { collection, getDocs,query,where } from "@firebase/firestore"
-import {setUserSession} from "./../Utils/common";
+import {setUserSession,setLocalStorageUser} from "./../Utils/common";
 
 let color = "#ff9334";
 let type = "spin";
@@ -28,7 +28,7 @@ const Login = () => {
         getDocs(getuse).then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 // doc.data() is never undefined for query doc snapshots
-                setUserSession((doc.id,"=>",doc.data()))
+                setLocalStorageUser((doc.id,"=>",doc.data()))
                 setloading(false)
                 navigate("/fetchfoods")
             });

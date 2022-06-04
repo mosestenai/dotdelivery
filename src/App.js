@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/login" element={<Login/>} exact />
           <Route path="/signup" element={<Signup/>} exact />
           <Route path="/fetchfoods" element={<Fetchfoods/>} exact />
-          <Route path="/viewmenumeal/: menuid" element={<Viewmenumeals/>} exact/>
+          <Route path="/viewmenumeal" element={<Viewmenumeals/>} exact/>
         </Routes>
       </div>
 

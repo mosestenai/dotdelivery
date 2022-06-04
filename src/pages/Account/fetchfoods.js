@@ -8,7 +8,7 @@ import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getSessionUser } from "./../Utils/common";
+import { getSessionUser,setMenuSessionId ,getLocalStorageUser} from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
 import Geocode from "react-geocode";
@@ -21,7 +21,7 @@ let type = "spinningBubbles";
 
 const Fetchfoods = () => {
 
-    const user = getSessionUser();
+    const user = getLocalStorageUser();
     const navigate = useNavigate();
     const [display, setdisplay] = useState(false);
 
@@ -185,7 +185,7 @@ const Fetchfoods = () => {
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
                 <div className="userslocation">
                     <FaMapMarker className="userslocationicon" />
-                    <p>{ useraddress.substring(10,30)}</p>
+                    <p>{ useraddress.substring(10,31)}</p>
                 </div>
                 <div className="foodheadersearchwrap">
                     <input type="text" className="foodheadersearchinput" />
@@ -286,7 +286,8 @@ const Fetchfoods = () => {
 
                             return (
                                 <div className="foods" key={key} onClick={() => {
-                                    navigate(`/viewmenumeal/${val.menuId}`)
+                                    setMenuSessionId(val.menuId)
+                                    navigate("./viewmenumeal")
                                 }}>
                                     <FaHeart className="likeicon" />
                                     <img src={val.mealImage} /><br />

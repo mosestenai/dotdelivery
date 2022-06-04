@@ -26,5 +26,16 @@ export const removeStudentSession = () => {
     localStorage.removeItem("student");
 
 }
+//get menu sessionid
+export const getMenuSessionId = () => {
+    const userStr = localStorage.getItem("menu");
+    if (userStr) return JSON.parse(userStr);
+    else return null;
+}
 
+
+//set menu session 
+export const setMenuSessionId = (menuid) => {
+    sessionStorage.setItem("menu", JSON.stringify(menuid));
+}
 
