@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import LoadingOverlay from 'react-loading-overlay'
 import {
     FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid,
     FaFile, FaSignOutAlt, FaLocationArrow, FaClock, FaQuestionCircle, FaFacebookMessenger, FaIdCard,
