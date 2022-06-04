@@ -214,11 +214,11 @@ const Signup = () => {
                     <input type="password" className="logininput" placeholder="password" value={password1} onChange={(e) => setpassword1(e.target.value)} />
                     <br /><br />
                     <input type="password" className="logininput" placeholder="confirm password" value={password2} onChange={(e) => setpassword2(e.target.value)} />
-
+                    <div style={{fontSize:10,color:"red",fontFamily:"cursive"}}>*passwords must be 6 or more characters long</div>
                     <div className="continuedetails">
                         By proceeding, you consent to get calls, WhatsApp or<br />
                         SMS messages, including by automated means, from Dot<br /> delivery
-                        and its affiliates to the number provided.
+                        and its affiliates to the contacts provided.
                     </div>
                     <div style={{ color: "red" }}>{error}</div>
 
