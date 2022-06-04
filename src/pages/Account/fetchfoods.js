@@ -9,8 +9,9 @@ import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
 import { getSessionUser } from "./../Utils/common";
-import { collection, getDocs,query,where } from "@firebase/firestore"
+import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
+
 
 
 let color = "#ff9334";
@@ -54,7 +55,7 @@ const Fetchfoods = () => {
     }, [])
 
 
-  
+
 
 
     return (
@@ -115,6 +116,44 @@ const Fetchfoods = () => {
                 </div>
             </div>
 
+            <div className="foodsandheaderwrap">
+                <div class="scrollmenu" style={{ backgroundColor: "white", marginBottom: 10 }}>
+                    <div className="iconfoods"><img src={require('./../../assets/icon1.png')} /><br />Deals</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon2.png')} /><br />Convenience</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon3.png')} /><br />Alcohol</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon4.png')} /><br />Pharmacy</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon5.png')} /><br />Flowers</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon6.png')} /><br />Highest<br /> rated</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon7.png')} /><br />Pizza</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon8.png')} /><br />Mexican</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon9.png')} /><br />Italian</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon10.png')} /><br />Sandwich</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon11.png')} /><br />Healthy</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon12.png')} /><br />Coffee and<br /> Tea</div>
+                    <div className="iconfoods"><img src={require('./../../assets/icon13.png')} /><br />Burgers</div>
+                </div>
+                <hr />
+                <div className="foodsheader" style={{ marginTop: 20 }}>
+                    Nearby Restaurants
+                </div>
+                <div class="scrollmenu">
+                    {restaurants.map((val, key) => {
+
+                        return (
+                            <div className="scrolldiv" key={key}>
+                                <img src={val.branchImg} /><br />
+
+                                <div className="foodrestaurant">{val.restaurant}</div><br />
+
+                                <div style={{ display: "contents", }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 25)}...</div>
+                                {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
+                            </div>
+                        )
+                    })}
+
+                    ...
+                </div>
+            </div>
 
             <div className="foodsandheaderwrap">
 
@@ -187,7 +226,7 @@ const Fetchfoods = () => {
 
             <div className="foodsandheaderwrap">
                 <div className="foodsheader">
-                    Popular restaurants
+                    All restaurants
                 </div>
                 {display ?
                     <div className="foodswrap">
@@ -196,60 +235,16 @@ const Fetchfoods = () => {
                             return (
                                 <div className="foods" key={key}>
                                     <img src={val.branchImg} /><br />
-                                    <div className="foodcontentdetails">
-                                        <div className="foodrestaurant">{val.restaurant}</div>
-                                    </div>
-                                    <div style={{marginBottom:30}} ><FaMapMarker color="#ff9334"/> {val.branchAddress.substring(0, 60)}...</div>
-                                   {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
+                                    <div className="foodrestaurant">{val.restaurant}</div>
+                                    <div style={{ marginBottom: 30 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
+                                    {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
                                 </div>
                             )
                         })}
 
                     </div> : <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
             </div>
-            <div className="foodsandheaderwrap">
-                <div className="foodsheader">
-                    Popular near you
-                </div>
-                <div className="foodswrap">
-                    <div className="foods">
-                        <FaHeart className="likeicon" />
-                        <img src={require("./../../assets/food1.jpg")} /><br />
-                        <div className="foodcontentdetails">
-                            <p className="foodrestaurant">ArostoInn</p>
-                            <div className="rating">4.5</div>
-                        </div>
-                        <p className="fooddeliveryprice">ksh40 Fee . 10-30min</p>
-                    </div>
-                    <div className="foods">
-                        <FaHeart className="likeicon" />
-                        <img src={require("./../../assets/food2.jpg")} /><br />
-                        <div className="foodcontentdetails">
-                            <p className="foodrestaurant">Starbucks</p>
-                            <div className="rating">4.5</div>
-                        </div>
-                        <p className="fooddeliveryprice">ksh80 Fee . 20-30min</p>
-                    </div>
-                    <div className="foods">
-                        <FaHeart className="likeicon" />
-                        <img src={require("./../../assets/food3.jpg")} /><br />
-                        <div className="foodcontentdetails">
-                            <p className="foodrestaurant">Iroko</p>
-                            <div className="rating">4.5</div>
-                        </div>
-                        <p className="fooddeliveryprice">ksh40 Fee . 20-50min</p>
-                    </div>
-                    <div className="foods">
-                        <FaHeart className="likeicon" />
-                        <img src={require("./../../assets/food3.jpg")} /><br />
-                        <div className="foodcontentdetails">
-                            <p className="foodrestaurant">Spear</p>
-                            <div className="rating">4.5</div>
-                        </div>
-                        <p className="fooddeliveryprice">ksh40 Fee . 20-50min</p>
-                    </div>
-                </div>
-            </div>
+
 
 
         </div>

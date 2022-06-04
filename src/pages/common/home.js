@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import { FaBeer, FaBars, FaTimes, FaAndroid } from 'react-icons/fa';
 import ReactLoading from 'react-loading';
 import { useNavigate } from 'react-router-dom';
+import {getSessionUser} from "./../Utils/common";
 let color = "#ff9334";
 let type = "spinningBubbles";
 
 
 
 const Home = () => {
+
+    const user = getSessionUser()
+    if(user){
+        navigate("./fetchfoods")
+    }
     const navigate = useNavigate();
 
     const list = [
