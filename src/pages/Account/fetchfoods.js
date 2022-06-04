@@ -276,7 +276,8 @@ const Fetchfoods = () => {
                                 <div className="foods" key={key}>
                                     <img src={val.branchImg} /><br />
                                     <div className="foodrestaurant">{val.restaurant}</div>
-                                    <div style={{ marginBottom: 30 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
+                                    <div style={{ marginBottom: 2 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
+                                    <div style={{fontSize:10,fontFamily:"cursive"}}> ({calcCrow(val.latitude,val.longitude,latitude,longitude)}km away)</div>
                                     {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
                                 </div>
                             )
