@@ -11,6 +11,7 @@ import ReactLoading from 'react-loading';
 import { getSessionUser } from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
+import Geocode from "react-geocode";
 
 
 
@@ -59,11 +60,11 @@ const Fetchfoods = () => {
         getlocation();
     }, [])
 
-    
+
     const getlocation = () => {
         navigator.geolocation.getCurrentPosition(
             function (position) {
-                console.log(position.coords.latitude)
+                console.log(position)
                 setlatitude(position.coords.latitude)
                 setlongitude(position.coords.longitude)
             },
@@ -74,27 +75,57 @@ const Fetchfoods = () => {
 
     }
 
-    function calcCrow(lat1, lon1, lat2, lon2) 
-    {
-      var R = 6371; // km
-      var dLat = toRad(lat2-lat1);
-      var dLon = toRad(lon2-lon1);
-      var lat1 = toRad(lat1);
-      var lat2 = toRad(lat2);
+    function calcCrow(lat1, lon1, lat2, lon2) {
+        var R = 6371; // km
+        var dLat = toRad(lat2 - lat1);
+        var dLon = toRad(lon2 - lon1);
+        var lat1 = toRad(lat1);
+        var lat2 = toRad(lat2);
 
-      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-      var d = R * c;
-      return Math.round(d);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return Math.round(d);
     }
-    function toRad(Value) 
-    {
+    function toRad(Value) {
         return Value * Math.PI / 180;
     }
 
+    
 
 
+// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+Geocode.setApiKey("AIzaSyB4Tle4NUq0FQmy8pxMUWsMOOMwVNqt00M");
+
+// set response language. Defaults to english.
+Geocode.setLanguage("en");
+
+// set response region. Its optional.
+// A Geocoding request with region=es (Spain) will return the Spanish city.
+Geocode.setRegion("es");
+
+// set location_type filter . Its optional.
+// google geocoder returns more that one address for given lat/lng.
+// In some case we need one address as response for which google itself provides a location_type filter.
+// So we can easily parse the result for fetching address components
+// ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
+// And according to the below google docs in description, ROOFTOP param returns the most accurate result.
+Geocode.setLocationType("ROOFTOP");
+
+// Enable or disable logs. Its optional.
+Geocode.enableDebug();
+
+// Get address from latitude & longitude.
+Geocode.fromLatLng("48.8583701", "2.2922926").then(
+  (response) => {
+    const address = response.results[0].formatted_address;
+    console.log(address);
+  },
+  (error) => {
+    console.error(error);
+  }
+);
 
 
 
@@ -185,7 +216,7 @@ const Fetchfoods = () => {
 
                                 <div className="foodrestaurant">{val.restaurant}</div><br />
                                 <div style={{ display: "contents", }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 25)}...</div><br />
-                               <div style={{fontSize:10,fontFamily:"cursive"}}> ({calcCrow(val.latitude,val.longitude,latitude,longitude)}km away)</div>
+                                <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(val.latitude, val.longitude, latitude, longitude)}km away)</div>
                                 {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
                             </div>
                         )
@@ -277,7 +308,7 @@ const Fetchfoods = () => {
                                     <img src={val.branchImg} /><br />
                                     <div className="foodrestaurant">{val.restaurant}</div>
                                     <div style={{ marginBottom: 2 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
-                                    <div style={{fontSize:10,fontFamily:"cursive"}}> ({calcCrow(val.latitude,val.longitude,latitude,longitude)}km away)</div>
+                                    <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(val.latitude, val.longitude, latitude, longitude)}km away)</div>
                                     {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
                                 </div>
                             )
