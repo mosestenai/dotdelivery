@@ -34,7 +34,7 @@ const Fetchfoods = () => {
     document.body.style.overflow = scroll
     const [overlaystatus, setoverlaystatus] = useState(false);
 
-    const restaurantscollectionRef = collection(db, "restaurants");
+    const restaurantscollectionRef = collection(db, "branches");
     const menucollection = collection(db, "menus")
 
     useEffect(() => {
@@ -195,12 +195,12 @@ const Fetchfoods = () => {
 
                             return (
                                 <div className="foods" key={key}>
-                                    <img src={val.restImg} /><br />
+                                    <img src={val.branchImg} /><br />
                                     <div className="foodcontentdetails">
-                                        <p className="foodrestaurant">{val.restaurant.substring(0, 10)}</p>
+                                        <div className="foodrestaurant">{val.restaurant}</div>
                                     </div>
-                                    <div style={{ marginTop: 5 }}> {val.restAddress.substring(0, 30)}...</div>
-                                    <div className="fooddeliveryprice">{val.restCategories[0]}</div>
+                                    <div style={{marginBottom:30}} ><FaMapMarker color="#ff9334"/> {val.branchAddress.substring(0, 60)}...</div>
+                                   {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
                                 </div>
                             )
                         })}

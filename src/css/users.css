@@ -84,6 +84,9 @@
     cursor: pointer;
     margin: 5px;
 }
+.foods :hover{
+    box-shadow: 2px 2px 2px 5px rgb(226, 223, 223);
+}
 
 .foods img {
     width: 100%;
