@@ -13,6 +13,9 @@
     width: 95%;
     white-space: nowrap;
 }
+.scrollmenu::-webkit-scrollbar {
+    display: none;
+  }
 .scrolldiv{
     display: inline-block;
     width: 20%;

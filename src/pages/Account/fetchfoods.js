@@ -8,7 +8,7 @@ import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getSessionUser,setMenuSessionId ,getLocalStorageUser} from "./../Utils/common";
+import { getSessionUser, setMenuSessionId, getLocalStorageUser } from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
 import Geocode from "react-geocode";
@@ -79,8 +79,8 @@ const Fetchfoods = () => {
     }
 
     //scroll page to view all restaurants
-    const viewallrestaurants = () =>{
-        document.getElementById("restaurants").scrollIntoView({behavior: 'smooth'});
+    const viewallrestaurants = () => {
+        document.getElementById("restaurants").scrollIntoView({ behavior: 'smooth' });
     }
 
     //calculate distance between user and restaurant
@@ -185,7 +185,7 @@ const Fetchfoods = () => {
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
                 <div className="userslocation">
                     <FaMapMarker className="userslocationicon" />
-                    <p>{ useraddress.substring(10,31)}</p>
+                    <p>{useraddress.substring(10, 31)}</p>
                 </div>
                 <div className="foodheadersearchwrap">
                     <input type="text" className="foodheadersearchinput" />
@@ -221,7 +221,7 @@ const Fetchfoods = () => {
                     {restaurants.map((val, key) => {
                         const kms = calcCrow(val.latitude, val.longitude, latitude, longitude);
                         return (
-                           kms < 50 && <div className="scrolldiv" key={key}>
+                            kms < 50 && <div className="scrolldiv" key={key}>
                                 <img src={val.branchImg} /><br />
 
                                 <div className="foodrestaurant">{val.restaurant}</div><br />
@@ -237,7 +237,7 @@ const Fetchfoods = () => {
             </div>
 
             <div className="foodsandheaderwrap">
-              
+
 
                 <div className="foodsheader">
                     Popular Menus
@@ -247,7 +247,6 @@ const Fetchfoods = () => {
                         {menu.map((val, key) => {
 
                             const rating = (val.rating / val.numberOfRatings).toFixed(1);
-
 
                             const Stars = () => {
 
@@ -287,7 +286,7 @@ const Fetchfoods = () => {
                             return (
                                 <div className="foods" key={key} onClick={() => {
                                     setMenuSessionId(val.menuId)
-                                    navigate("./viewmenumeal")
+                                    navigate("/viewmenumeal")
                                 }}>
                                     <FaHeart className="likeicon" />
                                     <img src={val.mealImage} /><br />

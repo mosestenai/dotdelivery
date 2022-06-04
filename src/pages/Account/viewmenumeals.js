@@ -9,8 +9,8 @@ const Viewmenumeals = () =>{
     
 
     return(
-        <div>
-         <h1> {menuid}</h1>  
+        <div style={{paddingTop:100}}>
+        
         </div>
     )
 }
