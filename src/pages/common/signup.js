@@ -85,8 +85,8 @@ const Signup = () => {
 
         if (!email || !password1 || !password2) {
 
-        } 
-        else if(password1 !== password2){
+        }
+        else if (password1 !== password2) {
             seterror("passwords provided do not match")
         }
         else {
@@ -164,7 +164,7 @@ const Signup = () => {
                         defaultCountry="BW"
                         onChange={setphone} />
 
-                     <div className="continuedetails">
+                    <div className="continuedetails">
                         By proceeding, you consent to get calls, WhatsApp or<br />
                         SMS messages, including by automated means, from Dot<br /> delivery
                         and its affiliates to the number provided.
@@ -195,14 +195,24 @@ const Signup = () => {
                         and its affiliates to the address provided.
                     </div>
                     <div style={{ color: "red" }}>{error}</div>
+                    <div className="navformbuttons">
+                        <div className="navformbackbutton"
+                            onClick={() => {
+                                setsecond(false)
+                                setfirst(true)
+                            }}
+                        > &nbsp;<FaArrowLeft />
+                        </div>
 
-                    <div className="nextbutton"
-                        onClick={checkemail}
-                        style={{
-                            color: !email ? "gray" : "white",
-                            backgroundColor: !email ? "white" : "#ff9334",
-                            cursor: !email ? "not-allowed" : "pointer"
-                        }}>Next &nbsp;<FaArrowRight /></div>
+                        <div className="navformnextbutton"
+                            onClick={checkemail}
+                            style={{
+                                color: !email ? "gray" : "white",
+                                backgroundColor: !email ? "white" : "#ff9334",
+                                cursor: !email ? "not-allowed" : "pointer"
+                            }}>Next &nbsp;<FaArrowRight />
+                        </div>
+                    </div>
                     <div className="continuedetails">
                         This site is protected by reCAPTCHA and the Google Privacy Policy
                         and Terms of Service apply.
@@ -218,7 +228,7 @@ const Signup = () => {
                     <input type="password" className="logininput" placeholder="password" value={password1} onChange={(e) => setpassword1(e.target.value)} />
                     <br /><br />
                     <input type="password" className="logininput" placeholder="confirm password" value={password2} onChange={(e) => setpassword2(e.target.value)} />
-                    <div style={{fontSize:10,color:"red",fontFamily:"cursive"}}>*passwords must be 6 or more characters long</div>
+                    <div style={{ fontSize: 10, color: "red", fontFamily: "cursive" }}>*passwords must be 6 or more characters long</div>
                     <div className="continuedetails">
                         By proceeding, you consent to get calls, WhatsApp or<br />
                         SMS messages, including by automated means, from Dot<br /> delivery
@@ -226,13 +236,24 @@ const Signup = () => {
                     </div>
                     <div style={{ color: "red" }}>{error}</div>
 
-                    <div className="nextbutton"
-                        onClick={handlesignup}
-                        style={{
-                            color: !password1 || !password2 ? "gray" : "white",
-                            backgroundColor: !password1 || !password2 ? "white" : "#ff9334",
-                            cursor: !password1 || !password2 ? "not-allowed" : "pointer"
-                        }}>{loading ? <div>loading...</div> : <div>Next &nbsp;<FaArrowRight /></div>}</div>
+                    <div className="navformbuttons">
+                        <div className="navformbackbutton"
+                            onClick={() => {
+                                setsecond(true)
+                                setpasswords(false)
+                            }}
+                        > &nbsp;<FaArrowLeft />
+                        </div>
+
+                        <div className="navformnextbutton"
+                            onClick={handlesignup}
+                            style={{
+                                color: !password1 || !password2 ? "gray" : "white",
+                                backgroundColor: !password1 || !password2 ? "white" : "#ff9334",
+                                cursor: !password1 || !password2 ? "not-allowed" : "pointer"
+                            }}>{loading ? <div>loading...</div> : <div>Next &nbsp;<FaArrowRight /></div>}
+                        </div>
+                    </div>
                     <div className="continuedetails">
                         This site is protected by reCAPTCHA and the Google Privacy Policy
                         and Terms of Service apply.
