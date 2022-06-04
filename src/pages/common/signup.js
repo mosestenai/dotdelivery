@@ -195,9 +195,9 @@ const Signup = () => {
                     <div className="nextbutton"
                         onClick={checkemail}
                         style={{
-                            color: !value3 ? "gray" : "white",
-                            backgroundColor: !value3 ? "white" : "#ff9334",
-                            cursor: !value3 ? "not-allowed" : "pointer"
+                            color: !email ? "gray" : "white",
+                            backgroundColor: !email ? "white" : "#ff9334",
+                            cursor: !email ? "not-allowed" : "pointer"
                         }}>Next &nbsp;<FaArrowRight /></div>
                     <div className="continuedetails">
                         This site is protected by reCAPTCHA and the Google Privacy Policy
