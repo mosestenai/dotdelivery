@@ -35,6 +35,7 @@ const Fetchfoods = () => {
 
     const [restaurants, setrestaurants] = useState([]);
     const [menu, setmenu] = useState([]);
+    const [useraddress, setuseraddress] = useState('');
 
     document.body.style.overflow = scroll
     const [overlaystatus, setoverlaystatus] = useState(false);
@@ -58,15 +59,17 @@ const Fetchfoods = () => {
         getMenus();
         getRestaurants();
         getlocation();
+
     }, [])
 
 
+    //get current user location
     const getlocation = () => {
         navigator.geolocation.getCurrentPosition(
             function (position) {
-                console.log(position)
                 setlatitude(position.coords.latitude)
                 setlongitude(position.coords.longitude)
+                getaddress(position.coords.longitude, position.coords.latitude);
             },
             function (error) {
                 alert(error.message + ". PLease allow location to continue");
@@ -75,6 +78,12 @@ const Fetchfoods = () => {
 
     }
 
+    //scroll page to view all restaurants
+    const viewallrestaurants = () =>{
+        document.getElementById("restaurants").scrollIntoView({behavior: 'smooth'});
+    }
+
+    //calculate distance between user and restaurant
     function calcCrow(lat1, lon1, lat2, lon2) {
         var R = 6371; // km
         var dLat = toRad(lat2 - lat1);
@@ -92,40 +101,41 @@ const Fetchfoods = () => {
         return Value * Math.PI / 180;
     }
 
-    
 
+    //get user location address based on his/her cordinates
+    const getaddress = (long, lat) => {
+        // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+        Geocode.setApiKey(process.env.REACT_APP_MAP_API_KEY);
 
-// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey("");
+        // set response language. Defaults to english.
+        Geocode.setLanguage("en");
 
-// set response language. Defaults to english.
-Geocode.setLanguage("en");
+        // set response region. Its optional.
+        // A Geocoding request with region=es (Spain) will return the Spanish city.
+        Geocode.setRegion("es");
 
-// set response region. Its optional.
-// A Geocoding request with region=es (Spain) will return the Spanish city.
-Geocode.setRegion("es");
+        // set location_type filter . Its optional.
+        // google geocoder returns more that one address for given lat/lng.
+        // In some case we need one address as response for which google itself provides a location_type filter.
+        // So we can easily parse the result for fetching address components
+        // ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
+        // And according to the below google docs in description, ROOFTOP param returns the most accurate result.
+        Geocode.setLocationType("ROOFTOP");
 
-// set location_type filter . Its optional.
-// google geocoder returns more that one address for given lat/lng.
-// In some case we need one address as response for which google itself provides a location_type filter.
-// So we can easily parse the result for fetching address components
-// ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
-// And according to the below google docs in description, ROOFTOP param returns the most accurate result.
-Geocode.setLocationType("ROOFTOP");
+        // Enable or disable logs. Its optional.
+        Geocode.enableDebug();
 
-// Enable or disable logs. Its optional.
-Geocode.enableDebug();
-
-// Get address from latitude & longitude.
-Geocode.fromLatLng("48.8583701", "2.2922926").then(
-  (response) => {
-    const address = response.results[0].formatted_address;
-    console.log(address);
-  },
-  (error) => {
-    console.error(error);
-  }
-);
+        // Get address from latitude & longitude.
+        Geocode.fromLatLng(lat, long).then(
+            (response) => {
+                const address = response.results[0].formatted_address;
+                setuseraddress(address)
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
 
 
 
@@ -175,7 +185,7 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
                 <div className="userslocation">
                     <FaMapMarker className="userslocationicon" />
-                    <p>Nairobi . Now</p>
+                    <p>{ useraddress.substring(10,30)}</p>
                 </div>
                 <div className="foodheadersearchwrap">
                     <input type="text" className="foodheadersearchinput" />
@@ -205,13 +215,13 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
                 </div>
                 <hr />
                 <div className="foodsheader" style={{ marginTop: 20 }}>
-                    Nearby Restaurants
+                    Nearby Restaurants   <button onClick={viewallrestaurants} className="viewallbutton">View all</button>
                 </div>
                 <div class="scrollmenu">
                     {restaurants.map((val, key) => {
-
+                        const kms = calcCrow(val.latitude, val.longitude, latitude, longitude);
                         return (
-                            <div className="scrolldiv" key={key}>
+                           kms < 50 && <div className="scrolldiv" key={key}>
                                 <img src={val.branchImg} /><br />
 
                                 <div className="foodrestaurant">{val.restaurant}</div><br />
@@ -227,6 +237,7 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
             </div>
 
             <div className="foodsandheaderwrap">
+              
 
                 <div className="foodsheader">
                     Popular Menus
@@ -274,7 +285,9 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
 
 
                             return (
-                                <div className="foods" key={key}>
+                                <div className="foods" key={key} onClick={() => {
+                                    navigate(`/viewmenumeal/${val.menuId}`)
+                                }}>
                                     <FaHeart className="likeicon" />
                                     <img src={val.mealImage} /><br />
                                     <div className="foodcontentdetails">
@@ -296,7 +309,7 @@ Geocode.fromLatLng("48.8583701", "2.2922926").then(
             </div>
 
             <div className="foodsandheaderwrap">
-                <div className="foodsheader">
+                <div className="foodsheader" id="restaurants">
                     All restaurants
                 </div>
                 {display ?

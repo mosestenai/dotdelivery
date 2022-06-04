@@ -6,6 +6,7 @@ import "./css/style.css";
 import Login from "./pages/common/login";
 import Signup from "./pages/common/signup";
 import Fetchfoods from "./pages/Account/fetchfoods";
+import Viewmenumeals from "./pages/Account/viewmenumeals";
 
 
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/login" element={<Login/>} exact />
           <Route path="/signup" element={<Signup/>} exact />
           <Route path="/fetchfoods" element={<Fetchfoods/>} exact />
+          <Route path="/viewmenumeal/: menuid" element={<Viewmenumeals/>} exact/>
         </Routes>
       </div>
 
