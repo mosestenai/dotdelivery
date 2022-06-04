@@ -288,7 +288,7 @@ const Fetchfoods = () => {
                                     setMenuSessionId(val.menuId)
                                     navigate("/viewmenumeal")
                                 }}>
-                                    <FaHeart className="likeicon" />
+                                    {/*<FaHeart className="likeicon" />*/}
                                     <img src={val.mealImage} /><br />
                                     <div className="foodcontentdetails">
                                         <div className="foodrestaurant">{val.menuName.substring(0, 10)}</div>
