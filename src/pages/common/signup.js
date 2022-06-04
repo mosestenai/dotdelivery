@@ -85,7 +85,11 @@ const Signup = () => {
 
         if (!email || !password1 || !password2) {
 
-        } else {
+        } 
+        else if(password1 !== password2){
+            seterror("passwords provided do not match")
+        }
+        else {
 
             try {
                 const user = await createUserWithEmailAndPassword(
