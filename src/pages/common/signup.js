@@ -25,7 +25,7 @@ const Signup = () => {
     document.body.style.overflow = 'auto';
 
     const [first, setfirst] = useState(true);
-   const [second, setsecond] = useState(false);
+    const [second, setsecond] = useState(false);
     const [passwords, setpasswords] = useState(false);
     const [overlaystatus, setoverlaystatus] = useState(false);
 
@@ -36,37 +36,49 @@ const Signup = () => {
     useEffect(() => {
 
     }, []);
-  
+
 
 
 
 
     const checkfield = () => {
-          const valemail = value1.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-          if (valemail) {
-              setemail(value1)
-              setvalue2("phone number")
-          } else {
+        const valemail = value1.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        if (valemail) {
+            setemail(value1)
+            setvalue2("phone number")
+            setfirst(false)
+            setsecond(true)
+        } else {
             setphone(value1)
             setvalue2("email")
-          }
-        setfirst(false)
-        setsecond(true)
-      
+            setfirst(false)
+            setsecond(true)
+        }
     }
 
-    const checksecondfield = () =>{
+    const checksecondfield = () => {
         const valemail = value3.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         if (valemail) {
             setemail(value3)
+            setpasswords(true)
+            setsecond(false)
         } else {
-          setphone(value3)
+            var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+            if (re.test(value3)) {
+                setphone(value3)
+                setpasswords(true)
+                setsecond(false)
+            } else {
+                seterror("invalid phone number")
+                setpasswords(true)
+                setsecond(false)
+            }
+
         }
-      setpasswords(true)
-      setsecond(false) 
+
     }
 
-   
+
 
     const handlesignup = async () => {
 
@@ -98,7 +110,7 @@ const Signup = () => {
     return (
         <div style={{ paddingBottom: 50 }}>
 
-            {overlaystatus? showback ?
+            {overlaystatus ? showback ?
                 <div style={{ width: "100%" }}>
                     <div style={{ width: 400, backgroundColor: "white", color: "black" }}>
                         <p className="loginquestion"> Start Over?<br />
@@ -129,7 +141,7 @@ const Signup = () => {
 
                     </div>
                 </div>
-                :null
+                : null
             }
             <div className="loginheader">
                 <img src={require("./../../assets/headericon.jpg")} className="loginheaderimage" />
@@ -147,6 +159,7 @@ const Signup = () => {
                         SMS messages, including by automated means, from Dot<br /> delivery
                         and its affiliates to the number provided.
                     </div>
+                    <div style={{ color: "red" }}>{error}</div>
 
                     <div className="nextbutton"
                         onClick={checkfield}
@@ -171,6 +184,7 @@ const Signup = () => {
                         SMS messages, including by automated means, from Dot<br /> delivery
                         and its affiliates to the number provided.
                     </div>
+                    <div style={{ color: "red" }}>{error}</div>
 
                     <div className="nextbutton"
                         onClick={checksecondfield}
@@ -186,7 +200,7 @@ const Signup = () => {
                     </div>
                 </div>
             }
-           
+
             {
                 passwords &&
                 <div className="loginform">
