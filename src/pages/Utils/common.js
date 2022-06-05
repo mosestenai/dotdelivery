@@ -26,19 +26,30 @@ export const removeStudentSession = () => {
     localStorage.removeItem("student");
 
 }
-//get menu sessionid
-export const getMenuSessionId = () => {
-    const userStr = sessionStorage.getItem("menu");
+//get restaurant session name
+export const getRestaurantSessionName = () => {
+    const userStr = sessionStorage.getItem("restaurant");
     if (userStr) return JSON.parse(userStr);
     else return null;
 }
 
-
-//set menu session 
-export const setMenuSessionId = (menuid) => {
-    sessionStorage.setItem("menu", JSON.stringify(menuid));
+//set restaurant session 
+export const setRestaurantSessionName = (restaurantname) => {
+    sessionStorage.setItem("restaurant", JSON.stringify(restaurantname));
 }
 
+
+//get branch session
+export const getBranchSessiondetails = () => {
+    const userStr = sessionStorage.getItem("branch");
+    if (userStr) return JSON.parse(userStr);
+    else return null;
+}
+
+//set branch session 
+export const setBranchSessiondetails = (branch) => {
+    sessionStorage.setItem("branch", JSON.stringify(branch));
+}
 //logout 
 export const logoutUser = () =>{
     localStorage.removeItem("user")

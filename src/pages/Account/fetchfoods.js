@@ -8,7 +8,7 @@ import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getSessionUser, setMenuSessionId, getLocalStorageUser, logoutUser } from "./../Utils/common";
+import { getSessionUser, getLocalStorageUser, logoutUser, setRestaurantSessionName } from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
 import Geocode from "react-geocode";
@@ -31,6 +31,8 @@ const Fetchfoods = () => {
 
     const [longitude, setlongitude] = useState('');
     const [latitude, setlatitude] = useState('');
+    const [showlogout, setshowlogout] = useState(false);
+    const [opacity, setopacity] = useState(1);
 
 
     const [restaurants, setrestaurants] = useState([]);
@@ -42,7 +44,7 @@ const Fetchfoods = () => {
 
     const restaurantscollectionRef = collection(db, "branches");
     const menucollection = collection(db, "menus")
-    if(!user){
+    if (!user) {
         navigate("/")
     }
 
@@ -141,12 +143,28 @@ const Fetchfoods = () => {
     }
 
 
+    //logout user
+
+    const onlogout = () => {
+        logoutUser();
+        navigate("/");
+    }
 
     return (
         <div>
+
             <div className="userheader">
+                {showlogout && <div className="logoutdiv">
+                    <div style={{ fontSize: 20, fontWeight: "bold" }}> Confirm to Logout</div>
+                    <div> Are you sure you want to logout?</div><br />
+                    <button className="logoutbuttons" onClick={onlogout}>Yes, logout</button>
+                    <button className="logoutbuttons" onClick={() => {
+                        setshowlogout(false)
+                        setopacity(1)
+                    }}>No</button>
+                </div>}
                 {displaysidenav &&
-                    <div className="userssidemenu ">
+                    <div className="userssidemenu " style={{ opacity: opacity }}>
                         <FaTimes className="sidecancel" style={{ marginTop: 20 }} onClick={() => {
                             setscroll('auto')
                             setdisplaysidenav(false)
@@ -167,9 +185,9 @@ const Fetchfoods = () => {
                                 <div><FaAndroid className="link-icons" />Help</div>
                                 <div><FaQuestionCircle className="link-icons" />Frequently asked questions</div>
                                 <div><FaFile className="link-icons" />Terms of Service</div>
-                                <div onClick={()=>{
-                                    logoutUser();
-                                    navigate("/");
+                                <div onClick={() => {
+                                    setshowlogout(true)
+                                    setopacity(0)
                                 }} ><FaSignOutAlt className="link-icons" />Sign Out</div>
                             </div>
                         </div>
@@ -189,21 +207,21 @@ const Fetchfoods = () => {
                 }} />
 
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
-                <div className="userslocation">
+                <div className="userslocation" style={{ opacity: opacity }}>
                     <FaMapMarker className="userslocationicon" />
                     <p>{useraddress.substring(10, 31)}</p>
                 </div>
-                <div className="foodheadersearchwrap">
+                <div className="foodheadersearchwrap" style={{ opacity: opacity }}>
                     <input type="text" className="foodheadersearchinput" />
                     <FaSearch className="searchicon" />
                 </div>
-                <div className="wrapcart">
+                <div className="wrapcart" style={{ opacity: opacity }}>
                     <FaShoppingCart className="userslocationicon" />
                     <p>0 . Cart</p>
                 </div>
             </div>
 
-            <div className="foodsandheaderwrap">
+            <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
                 <div class="scrollmenu" style={{ backgroundColor: "white", marginBottom: 10 }}>
                     <div className="iconfoods"><img src={require('./../../assets/icon1.png')} /><br />Deals</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon2.png')} /><br />Convenience</div>
@@ -227,7 +245,7 @@ const Fetchfoods = () => {
                     {restaurants.map((val, key) => {
                         const kms = calcCrow(val.latitude, val.longitude, latitude, longitude);
                         return (
-                            kms < 50 && <div className="scrolldiv" key={key}>
+                            kms < 30 && <div className="scrolldiv" key={key}>
                                 <img src={val.branchImg} /><br />
 
                                 <div className="foodrestaurant">{val.restaurant}</div><br />
@@ -242,7 +260,7 @@ const Fetchfoods = () => {
                 </div>
             </div>
 
-            <div className="foodsandheaderwrap">
+            <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
 
 
                 <div className="foodsheader">
@@ -291,7 +309,7 @@ const Fetchfoods = () => {
 
                             return (
                                 <div className="foods" key={key} onClick={() => {
-                                    setMenuSessionId(val.menuId)
+                                    setRestaurantSessionName(val)
                                     navigate("/viewmenumeal")
                                 }}>
                                     {/*<FaHeart className="likeicon" />*/}
@@ -314,7 +332,7 @@ const Fetchfoods = () => {
                     : <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
             </div>
 
-            <div className="foodsandheaderwrap">
+            <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
                 <div className="foodsheader" id="restaurants">
                     All restaurants
                 </div>
@@ -325,7 +343,7 @@ const Fetchfoods = () => {
                             return (
                                 <div className="foods" key={key}>
                                     <img src={val.branchImg} /><br />
-                                    <div className="foodrestaurant">{val.restaurant}</div>
+                                    <div className="foodrestaurant">{val.branch}</div>
                                     <div style={{ marginBottom: 2 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
                                     <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(val.latitude, val.longitude, latitude, longitude)}km away)</div>
                                     {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}

@@ -1,29 +1,33 @@
 import { useLocation, useNavigate } from "react-router-dom";
+
 import React, { useState, useEffect } from "react";
 import {
     FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid,
     FaFile, FaSignOutAlt, FaLocationArrow, FaClock, FaQuestionCircle, FaFacebookMessenger, FaIdCard,
     FaStar, FaUtensils
 } from 'react-icons/fa';
-import "./../../css/users.css";
 import { db } from "./../../firebase-config";
+import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getRestaurantSessionName, getLocalStorageUser, logoutUser ,setBranchSessiondetails} from "./../Utils/common";
+import { getRestaurantSessionName, getLocalStorageUser, logoutUser, getBranchSessiondetails } from "./../Utils/common";
 import { collection, getDocs, query, where, orderBy, startAt, endAt } from "@firebase/firestore"
 import Geocode from "react-geocode";
+import "./../../css/branch.css";
 
 
 let color = "#ff9334";
 let type = "spinningBubbles";
 
 
-const Viewmenumeals = () => {
+const Viewbranch = () => {
     const navigate = useNavigate();
     const user = getLocalStorageUser();
-    const restaurantname = getRestaurantSessionName();
+    const branch = getBranchSessiondetails();
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState('');
-    const [branches, setbranches] = useState([]);
+
+    const [meals, setmeals] = useState([]);
+    const [reviews, setreviews] = useState([]);
     const [display, setdisplay] = useState(false);
 
     const [longitude, setlongitude] = useState('');
@@ -45,7 +49,7 @@ const Viewmenumeals = () => {
 
     //fetch branches with restaurant name
     const fetchBranches = () => {
-        const getuse = query(collection(db, "branches"), where("restaurant", "==", restaurantname.restaurant));
+        const getuse = query(collection(db, "meals"), where("restaurant", "==", branch.restaurant));
 
         /*  const data = await getDocs(menucollection);
           setmenu(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));*/
@@ -53,7 +57,7 @@ const Viewmenumeals = () => {
         getDocs(getuse).
             then(function (querySnapshot) {
                 setloading(false)
-                setbranches(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+                setmeals(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
                 setdisplay(true)
             })
             .catch(function (error) {
@@ -181,28 +185,30 @@ const Viewmenumeals = () => {
                     <FaMapMarker className="userslocationicon" />
                     <p>{useraddress.substring(10, 31)}</p>
                 </div>
-                <div className="carticon" style={{ opacity: opacity }}>
-                    <FaShoppingCart /> 0 . Cart
-                </div>
             </div>
-            {display &&
+           
                 <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
+                    <div className="branchbody">
+                    <img src={branch.branchImg} /><br />
+                        </div>
                     <div className="foodsheader" >
-                        Restaurants({restaurantname.menuName})
+                        Meals
                     </div>
                     {display ?
                         <div className="foodswrap">
-                            {branches?.map((val, key) => {
+                            {meals?.map((val, key) => {
+
+
                                 return (
-                                    <div className="foods" key={key} onClick={()=>{
-                                        setBranchSessiondetails(val)
-                                        navigate("/viewbranch")
+                                    <div className="foods" key={key} onClick={() => {
+                                        navigate("/viewmenumeal")
                                     }}>
-                                        <img className="branchbodyprofileimage" src={val.branchImg} /><br />
-                                        <div className="foodrestaurant">{val.branch}</div>
-                                        <div style={{ marginBottom: 2 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
-                                        <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(val.latitude, val.longitude, latitude, longitude)}km away)</div>
-                                        {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
+                                        {/*<FaHeart className="likeicon" />*/}
+                                        <img src={val.mealImage} /><br />
+                                        <div className="foodcontentdetails">
+                                            <div className="foodrestaurant">{val.mealName.substring(0, 10)}</div>
+                                        </div>
+                                        <div className="fooddeliveryprice"><FaUtensils color="#ff9334" size={10} />{val.mealPrice}</div>
                                     </div>
                                 )
                             })}
@@ -210,7 +216,7 @@ const Viewmenumeals = () => {
                         </div>
                         : <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
                 </div>
-            }
+            
             {error && < h5 align="middle" style={{ color: "red" }}>{error}</h5>}
             {loading && <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
 
@@ -218,4 +224,4 @@ const Viewmenumeals = () => {
     )
 }
 
-export default Viewmenumeals;
+export default Viewbranch;

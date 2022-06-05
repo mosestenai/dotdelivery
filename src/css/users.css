@@ -6,6 +6,31 @@
     border-bottom: 1px solid silver;
     flex-wrap: wrap;
 }
+.carticon{
+    margin-left: 58%;
+    margin-top: 50px;
+}
+
+.logoutdiv {
+    background-color: white;
+    position: absolute;
+    z-index: 3;
+    margin: 20% 30% 0% 40%;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.logoutbuttons{
+    background-color: #ff9334;
+    text-align: center;
+    color:white;
+    padding: 10px;
+    cursor: pointer;
+    width: 45%;
+    border-radius: 5px;
+    border:none;
+    margin-right: 3px;
+}
 
 .scrollmenu {
     overflow: auto;
@@ -249,6 +274,17 @@
 
 /*small screens*/
 @media only screen and (max-width : 450px) {
+    .carticon{
+       display: none;
+    }
+    .logoutdiv {
+        background-color: white;
+        position: absolute;
+        z-index: 3;
+        margin: 60% 0% 0% 5%;
+        border-radius: 5px;
+        padding: 20px;
+    }
 
     .foodsheader {
         width: 100%;
@@ -394,6 +430,18 @@
 
 /* mobile view medium*/
 @media only screen and (min-width : 450px) and (max-width : 750px) {
+    .carticon{
+        margin-left: 0%;
+        margin-top: 60px;
+    }
+    .logoutdiv {
+        background-color: white;
+        position: absolute;
+        z-index: 3;
+        margin: 60% 0% 0% 25%;
+        border-radius: 5px;
+        padding: 20px;
+    }
 
     .foodsheader {
         width: 100%;
@@ -537,149 +585,161 @@
 
 }
 
-    /*tablets */
-    @media only screen and (min-width : 750px) and (max-width : 1080px) {
+/*tablets */
+@media only screen and (min-width : 750px) and (max-width : 1080px) {
+    .carticon{
+        margin-left: 0%;
+        margin-top: 40px;
+    }
+    .logoutdiv {
+        background-color: white;
+        position: absolute;
+        z-index: 3;
+        margin: 40% 0% 0% 30%;
+        border-radius: 5px;
+        padding: 20px;
+    }
 
-        .foodsheader {
-            width: 100%;
-            font-weight: bolder;
-            font-size: 20px;
-        }
+    .foodsheader {
+        width: 100%;
+        font-weight: bolder;
+        font-size: 20px;
+    }
 
-        .iconfoods {
-            display: inline-block;
-            width: 20%;
-        }
+    .iconfoods {
+        display: inline-block;
+        width: 20%;
+    }
 
-        .scrollmenu {
-            overflow: auto;
-            margin: 0 auto;
-            width: 105%;
-            white-space: nowrap;
-        }
+    .scrollmenu {
+        overflow: auto;
+        margin: 0 auto;
+        width: 105%;
+        white-space: nowrap;
+    }
 
-        .scrolldiv {
-            display: inline-block;
-            width: 40%;
-            cursor: pointer;
-            margin: 5px;
-        }
+    .scrolldiv {
+        display: inline-block;
+        width: 40%;
+        cursor: pointer;
+        margin: 5px;
+    }
 
-        .scrolldiv div {
-            display: block;
-        }
+    .scrolldiv div {
+        display: block;
+    }
 
 
-        .scrolldiv img {
-            width: 100%;
-            height: 130px;
-        }
+    .scrolldiv img {
+        width: 100%;
+        height: 130px;
+    }
 
-        .sidewrap2 {
-            padding-bottom: 20px;
-        }
+    .sidewrap2 {
+        padding-bottom: 20px;
+    }
 
-        .usershomelogo {
-            width: 80px;
-        }
+    .usershomelogo {
+        width: 80px;
+    }
 
-        .userslocation {
-            display: flex;
-            margin: 3% 1% 3% 0%;
-            width: 30%;
-            background-color: rgb(219, 218, 218);
-            height: 35px;
-            border-radius: 20px;
-            cursor: pointer;
-            padding-bottom: 10px;
-            display: flex;
-        }
+    .userslocation {
+        display: flex;
+        margin: 3% 1% 3% 0%;
+        width: 30%;
+        background-color: rgb(219, 218, 218);
+        height: 35px;
+        border-radius: 20px;
+        cursor: pointer;
+        padding-bottom: 10px;
+        display: flex;
+    }
 
-        .wrapcart {
-            display: flex;
-            margin: 0% 1% 2% 1%;
-            width: 30%;
-            background-color: black;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            display: flex;
-        }
+    .wrapcart {
+        display: flex;
+        margin: 0% 1% 2% 1%;
+        width: 30%;
+        background-color: black;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        display: flex;
+    }
 
-        .foodheadersearchwrap {
-            margin: 0% 1% 2% 5%;
-            width: 60%;
-            display: flex;
-        }
+    .foodheadersearchwrap {
+        margin: 0% 1% 2% 5%;
+        width: 60%;
+        display: flex;
+    }
 
-        .foodheadersearchinput {
-            padding: 10px;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            border: none transparent;
-            outline: none;
-            height: 30px;
-            width: 100%;
-            background-color: rgb(219, 218, 218);
-        }
+    .foodheadersearchinput {
+        padding: 10px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border: none transparent;
+        outline: none;
+        height: 30px;
+        width: 100%;
+        background-color: rgb(219, 218, 218);
+    }
 
-        .foodrestaurant {
-            font-size: 15px;
-            width: 50%;
-            margin-top: 10px;
-            font-weight: bolder;
-        }
+    .foodrestaurant {
+        font-size: 15px;
+        width: 50%;
+        margin-top: 10px;
+        font-weight: bolder;
+    }
 
-        .userssidemenu {
-            position: fixed;
-            padding-top: 5px;
-            width: 100%;
-            background-color: white;
-            padding-left: 10px;
-            padding-bottom: 50px;
+    .userssidemenu {
+        position: fixed;
+        padding-top: 5px;
+        width: 100%;
+        background-color: white;
+        padding-left: 10px;
+        padding-bottom: 50px;
 
-        }
+    }
 
-        .foods {
-            width: 30%;
-            cursor: pointer;
-            margin: 2px;
-        }
+    .foods {
+        width: 30%;
+        cursor: pointer;
+        margin: 2px;
+    }
 
-        .likeicon {
-            position: absolute;
-            color: white;
-            margin-left: 140px;
-            font-size: 20px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
+    .likeicon {
+        position: absolute;
+        color: white;
+        margin-left: 140px;
+        font-size: 20px;
+        cursor: pointer;
+        margin-top: 5px;
+    }
 
-        .rating {
-            background-color: rgb(219, 218, 218);
-            border-radius: 20px;
-            width: 40px;
-            padding: 10px;
-            height: 20px;
-            margin: 5px 0px 0px 0%;
-            text-align: center;
-        }
+    .rating {
+        background-color: rgb(219, 218, 218);
+        border-radius: 20px;
+        width: 40px;
+        padding: 10px;
+        height: 20px;
+        margin: 5px 0px 0px 0%;
+        text-align: center;
+    }
 
-        .stars {
-            width: 70%;
-        }
+    .stars {
+        width: 70%;
+    }
 
-        .foodcontentdetails {
-            display: flex;
-            height: 20%;
-        }
+    .foodcontentdetails {
+        display: flex;
+        height: 20%;
+    }
 
-        .fooddeliveryprice {
-            margin-bottom: 10px;
-            font-size: 13px;
-            color: rgb(59, 59, 58);
-        }
-    
+    .fooddeliveryprice {
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: rgb(59, 59, 58);
+    }
+
 
 
 
