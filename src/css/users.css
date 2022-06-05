@@ -13,16 +13,19 @@
     width: 95%;
     white-space: nowrap;
 }
+
 .scrollmenu::-webkit-scrollbar {
     display: none;
-  }
-.scrolldiv{
+}
+
+.scrolldiv {
     display: inline-block;
     width: 20%;
     cursor: pointer;
     margin: 5px;
 }
-.scrolldiv div{
+
+.scrolldiv div {
     display: block;
 }
 
@@ -61,7 +64,8 @@
     border-bottom-right-radius: 20px;
 
 }
-.viewallbutton{
+
+.viewallbutton {
     color: blue;
     cursor: pointer;
     border: none;
@@ -110,18 +114,21 @@
     display: flex;
     flex-wrap: wrap;
     padding-top: 15px;
-    
+
 }
-.iconfoods{
+
+.iconfoods {
     display: inline-block;
     width: 8%;
 }
-.iconfoods img{
+
+.iconfoods img {
     width: 30px;
     height: 30px;
-   
+
 }
-.iconfoods img:hover{
+
+.iconfoods img:hover {
     cursor: pointer;
     background-color: silver;
     border-radius: 50px;
@@ -240,39 +247,43 @@
 }
 
 /* mobile view*/
-@media only screen and (max-width : 780px) {
-    
-.foodsheader {
-    width: 100%;
-    font-weight: bolder;
-    font-size: 20px;
-}
-    .iconfoods{
+@media only screen and (min-width : 330px) and (max-width : 480px) {
+
+    .foodsheader {
+        width: 100%;
+        font-weight: bolder;
+        font-size: 20px;
+    }
+
+    .iconfoods {
         display: inline-block;
         width: 30%;
     }
+
     .scrollmenu {
         overflow: auto;
         margin: 0 auto;
         width: 105%;
         white-space: nowrap;
     }
-    
-    .scrolldiv{
+
+    .scrolldiv {
         display: inline-block;
         width: 50%;
         cursor: pointer;
         margin: 5px;
     }
-    .scrolldiv div{
+
+    .scrolldiv div {
         display: block;
     }
-    
-    
+
+
     .scrolldiv img {
         width: 100%;
         height: 130px;
     }
+
     .sidewrap2 {
         padding-bottom: 20px;
     }
@@ -378,6 +389,296 @@
         color: rgb(59, 59, 58);
     }
 
+}
+
+/*small screens*/
+@media only screen and (max-width : 330px) {
+
+    .foodsheader {
+        width: 100%;
+        font-weight: bolder;
+        font-size: 20px;
+    }
+
+    .iconfoods {
+        display: inline-block;
+        width: 30%;
+    }
+
+    .scrollmenu {
+        overflow: auto;
+        margin: 0 auto;
+        width: 105%;
+        white-space: nowrap;
+    }
+
+    .scrolldiv {
+        display: inline-block;
+        width: 80%;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    .scrolldiv div {
+        display: block;
+    }
+
+
+    .scrolldiv img {
+        width: 100%;
+        height: 130px;
+    }
+
+    .sidewrap2 {
+        padding-bottom: 20px;
+    }
+
+    .usershomelogo {
+        width: 80px;
+    }
+
+    .userslocation {
+        display: flex;
+        margin: 10% 1% 3% 0%;
+        width: 55%;
+        background-color: rgb(219, 218, 218);
+        height: 35px;
+        border-radius: 20px;
+        cursor: pointer;
+        padding-bottom: 10px;
+        display: flex;
+    }
+
+    .wrapcart {
+        display: flex;
+        margin: 0% 1% 2% 1%;
+        width: 30%;
+        background-color: black;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        display: flex;
+    }
+
+    .foodheadersearchwrap {
+        margin: 0% 1% 2% 3%;
+        width: 60%;
+        display: flex;
+    }
+
+    .foodheadersearchinput {
+        padding: 10px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border: none transparent;
+        outline: none;
+        height: 30px;
+        width: 100%;
+        background-color: rgb(219, 218, 218);
+    }
+
+    .foodrestaurant {
+        font-size: 15px;
+        width: 50%;
+        margin-top: 10px;
+        font-weight: bolder;
+    }
+
+    .userssidemenu {
+        position: fixed;
+        padding-top: 5px;
+        width: 100%;
+        background-color: white;
+        padding-left: 10px;
+        padding-bottom: 50px;
+
+    }
+
+    .foods {
+        width: 90%;
+        cursor: pointer;
+        margin: 2px;
+    }
+
+    .likeicon {
+        position: absolute;
+        color: white;
+        margin-left: 140px;
+        font-size: 20px;
+        cursor: pointer;
+        margin-top: 5px;
+    }
+
+    .rating {
+        background-color: rgb(219, 218, 218);
+        border-radius: 20px;
+        width: 40px;
+        padding: 10px;
+        height: 20px;
+        margin: 5px 0px 0px 0%;
+        text-align: center;
+    }
+
+    .stars {
+        width: 70%;
+    }
+
+    .foodcontentdetails {
+        display: flex;
+        height: 20%;
+    }
+
+    .fooddeliveryprice {
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: rgb(59, 59, 58);
+    }
+
+}
+
+    /*tablets */
+    @media only screen and (min-width : 480px) and (max-width : 1080px) {
+
+        .foodsheader {
+            width: 100%;
+            font-weight: bolder;
+            font-size: 20px;
+        }
+
+        .iconfoods {
+            display: inline-block;
+            width: 20%;
+        }
+
+        .scrollmenu {
+            overflow: auto;
+            margin: 0 auto;
+            width: 105%;
+            white-space: nowrap;
+        }
+
+        .scrolldiv {
+            display: inline-block;
+            width: 40%;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .scrolldiv div {
+            display: block;
+        }
+
+
+        .scrolldiv img {
+            width: 100%;
+            height: 130px;
+        }
+
+        .sidewrap2 {
+            padding-bottom: 20px;
+        }
+
+        .usershomelogo {
+            width: 80px;
+        }
+
+        .userslocation {
+            display: flex;
+            margin: 3% 1% 3% 0%;
+            width: 30%;
+            background-color: rgb(219, 218, 218);
+            height: 35px;
+            border-radius: 20px;
+            cursor: pointer;
+            padding-bottom: 10px;
+            display: flex;
+        }
+
+        .wrapcart {
+            display: flex;
+            margin: 0% 1% 2% 1%;
+            width: 30%;
+            background-color: black;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+        }
+
+        .foodheadersearchwrap {
+            margin: 0% 1% 2% 5%;
+            width: 60%;
+            display: flex;
+        }
+
+        .foodheadersearchinput {
+            padding: 10px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border: none transparent;
+            outline: none;
+            height: 30px;
+            width: 100%;
+            background-color: rgb(219, 218, 218);
+        }
+
+        .foodrestaurant {
+            font-size: 15px;
+            width: 50%;
+            margin-top: 10px;
+            font-weight: bolder;
+        }
+
+        .userssidemenu {
+            position: fixed;
+            padding-top: 5px;
+            width: 100%;
+            background-color: white;
+            padding-left: 10px;
+            padding-bottom: 50px;
+
+        }
+
+        .foods {
+            width: 30%;
+            cursor: pointer;
+            margin: 2px;
+        }
+
+        .likeicon {
+            position: absolute;
+            color: white;
+            margin-left: 140px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .rating {
+            background-color: rgb(219, 218, 218);
+            border-radius: 20px;
+            width: 40px;
+            padding: 10px;
+            height: 20px;
+            margin: 5px 0px 0px 0%;
+            text-align: center;
+        }
+
+        .stars {
+            width: 70%;
+        }
+
+        .foodcontentdetails {
+            display: flex;
+            height: 20%;
+        }
+
+        .fooddeliveryprice {
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: rgb(59, 59, 58);
+        }
+    
 
 
 
