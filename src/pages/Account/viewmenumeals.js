@@ -20,6 +20,9 @@ let type = "spinningBubbles";
 const Viewmenumeals = () => {
     const navigate = useNavigate();
     const user = getLocalStorageUser();
+    if (!user) {
+        navigate("/")
+    }
     const restaurantname = getRestaurantSessionName();
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState('');
@@ -198,7 +201,7 @@ const Viewmenumeals = () => {
                                         setBranchSessiondetails(val)
                                         navigate("/viewbranch")
                                     }}>
-                                        <img className="branchbodyprofileimage" src={val.branchImg} /><br />
+                                        <img src={val.branchImg} /><br />
                                         <div className="foodrestaurant">{val.branch}</div>
                                         <div style={{ marginBottom: 2 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
                                         <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(val.latitude, val.longitude, latitude, longitude)}km away)</div>

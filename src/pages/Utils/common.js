@@ -50,6 +50,28 @@ export const getBranchSessiondetails = () => {
 export const setBranchSessiondetails = (branch) => {
     sessionStorage.setItem("branch", JSON.stringify(branch));
 }
+
+//get cart no session
+export const getcartSessionno = () => {
+    const userStr = sessionStorage.getItem("cartno");
+    if (userStr) return JSON.parse(userStr);
+    else return null;
+}
+//set cartno session 
+export const setcartSessionno = (cartno) => {
+    sessionStorage.setItem("cartno", JSON.stringify(cartno));
+}
+
+//get cart session
+export const getcartSession = () => {
+    const userStr = sessionStorage.getItem("cart");
+    if (userStr) return JSON.parse(userStr);
+    else return null;
+}
+//set cart session 
+export const setcartSession = (cart) => {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+}
 //logout 
 export const logoutUser = () =>{
     localStorage.removeItem("user")

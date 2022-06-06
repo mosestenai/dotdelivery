@@ -275,32 +275,32 @@ const Fetchfoods = () => {
                             const Stars = () => {
 
                                 if (rating > 4) {
-                                    return <div>
+                                    return <div style={{display:"flex"}}>
                                         <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" />
                                     </div>
                                 }
                                 if (rating > 3.9 && rating < 5) {
-                                    return <div>
+                                    return<div style={{display:"flex"}}>
                                         <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="gray" />
                                     </div>
                                 }
                                 if (rating > 2.9 && rating < 4) {
-                                    return <div>
+                                    return<div style={{display:"flex"}}>
                                         <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="gray" /><FaStar color="gray" />
                                     </div>
                                 }
                                 if (rating > 1.9 && rating < 3) {
-                                    return <div>
+                                    return <div style={{display:"flex"}}>
                                         <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
                                     </div>
                                 }
                                 if (rating > 0.9 && rating < 2) {
-                                    return <div>
+                                    return <div style={{display:"flex"}}>
                                         <FaStar color="#ff9334" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
                                     </div>
                                 }
                                 if (rating < 0.9) {
-                                    return <div>
+                                    return <div style={{display:"flex"}}>
                                         <FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
                                     </div>
                                 }
@@ -316,7 +316,7 @@ const Fetchfoods = () => {
                                     <img src={val.mealImage} /><br />
                                     <div className="foodcontentdetails">
                                         <div className="foodrestaurant">{val.menuName.substring(0, 10)}</div>
-                                        <div className="stars">{rating > 0 ? <Stars /> :
+                                        <div className="stars" style={{display:"flex"}}>{rating > 0 ? <Stars /> :
                                             <div>
                                                 <FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
                                             </div>

@@ -1,7 +1,7 @@
 .loginheader {
     background-color: black;
     width: 100%;
-    display:flex;
+    display: flex;
 }
 
 .loginheaderimage {
@@ -9,12 +9,14 @@
     height: 100px;
     margin-left: 5%;
 }
-.headermessage{
+
+.headermessage {
     margin-left: 35%;
     color: white;
     margin-top: 30px;
 }
-.loginform .PhoneInput{
+
+.loginform .PhoneInput {
     padding: 10px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -23,10 +25,11 @@
     width: 70%;
     background-color: rgb(219, 218, 218);
 }
-.loginform .PhoneInput--focus{
+
+.loginform .PhoneInput--focus {
     font-size: 20px;
     outline: none;
-    border:none transparent;
+    border: none transparent;
 }
 
 .loginform {
@@ -96,7 +99,8 @@
     cursor: pointer;
     text-align: center;
 }
-.navformbackbutton:hover{
+
+.navformbackbutton:hover {
     background-color: rgb(211, 210, 210);
 }
 
@@ -105,42 +109,44 @@
     border-radius: 10px;
     padding: 10px 10px 0px 10px;
 }
-.resendbutton{
-    border:none;
+
+.resendbutton {
+    border: none;
     background-color: rgb(219, 218, 218);
     border-radius: 20px;
     padding: 10px;
     margin-top: 20px;
     cursor: pointer;
 }
-.resendbutton:hover{
+
+.resendbutton:hover {
     background-color: rgb(211, 210, 210);
 }
 
-.confirmbuttonyes{
+.confirmbuttonyes {
     background-color: rgb(219, 218, 218);
     width: 90%;
     text-align: center;
     margin-top: 10px;
-    border:none;
+    border: none;
     height: 30px;
     cursor: pointer;
 }
 
-.confirmbuttonno{
+.confirmbuttonno {
     margin-top: 10px;
     text-align: center;
     background-color: black;
     color: white;
     width: 90%;
     height: 30px;
-    border:none;
+    border: none;
     cursor: pointer;
     margin-bottom: 30px;
 }
 
 /* mobile view*/
-@media only screen and (max-width : 780px) {
+@media only screen and (max-width : 450px) {
     .loginform {
         background-color: white;
         width: 80%;
@@ -159,9 +165,67 @@
         padding: 10px 10px 10px 15px;
         border-radius: 10px;
     }
+
     .navformnextbutton {
         margin-left: 50%;
         border-radius: 10px;
         padding: 10px 10px 0px 10px;
     }
+}
+
+    /* mobile view medium*/
+    @media only screen and (min-width : 450px) and (max-width : 750px) {
+        .loginform {
+            background-color: white;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 5px;
+            margin-top: 50px;
+            padding-top: 20px;
+            padding-left: 10%;
+        }
+
+        .nextbutton {
+            display: flex;
+            margin-top: 50px;
+            margin-left: 52%;
+            margin-right: 20%;
+            padding: 10px 10px 10px 15px;
+            border-radius: 10px;
+        }
+
+        .navformnextbutton {
+            margin-left: 50%;
+            border-radius: 10px;
+            padding: 10px 10px 0px 10px;
+        }
+
+}
+/* tablet view*/
+@media only screen and (min-width : 750px) and (max-width : 1080px) {
+    .loginform {
+        background-color: white;
+        width: 70%;
+        margin: 0 auto;
+        border-radius: 5px;
+        margin-top: 50px;
+        padding-top: 20px;
+        padding-left: 10%;
+    }
+
+    .nextbutton {
+        display: flex;
+        margin-top: 50px;
+        margin-left: 52%;
+        margin-right: 30%;
+        padding: 10px 10px 10px 15px;
+        border-radius: 10px;
+    }
+
+    .navformnextbutton {
+        margin-left: 50%;
+        border-radius: 10px;
+        padding: 10px 10px 0px 10px;
+    }
+
 }

@@ -56,6 +56,7 @@ const Login = () => {
                 }
             } catch (error) {
                 setloading(false)
+                console.log(error.message)
                 seterror("invalid credentials")
             }
         }

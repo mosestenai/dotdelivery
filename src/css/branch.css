@@ -1,9 +1,206 @@
-.branchbody{
-    background-color:rgb(226, 225, 225);
+.branchbody {
+    background-color: rgb(226, 225, 225);
     padding: 20px;
-    
+    width: 60%;
+
+}
+.carticonno{
+    margin-left: 80%;
+    margin-top: 2%;
 }
 
-.branchbodyprofileimage{
-    height: 50px;
+.branchbodyprofileimage {
+    height: 300px;
+    width: 50%;
+    border-radius: 20px;
 }
+
+.branchbodyprofilecontent {
+    position: absolute;
+    margin-left: 30%;
+    width: 300px;
+    padding: 10px;
+}
+
+.branchbodyprofilecontent button {
+    border: none;
+    padding: 10px;
+    color: #ff9334;
+}
+
+.branchbodyprofiletime {
+    height: 325px;
+    position: absolute;
+    background-color: rgb(226, 225, 225);
+    right: 50px;
+    width: 300px;
+    padding: 10px;
+}
+
+.ratingusericon {
+    background-color: silver;
+    border-radius: 30px;
+    padding: 20px;
+    margin-right: 10px;
+}
+
+.userratingdiv {
+    padding: 10px;
+    display: flex;
+}
+
+.viewallreviewsbutton {
+    background-color: rgb(226, 225, 225);
+    color: blue;
+    border: none;
+    cursor: pointer;
+}
+
+.mealname {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/*small screens*/
+@media only screen and (max-width : 450px) {
+    .carticonno{
+        margin-left: 30%;
+        margin-top: 10%;
+    }
+    
+    .branchbody {
+        background-color: rgb(226, 225, 225);
+        padding: 20px;
+        width: 90%;
+    
+    }
+    
+    .branchbodyprofileimage {
+        height: 300px;
+        width: 100%;
+        border-radius: 20px;
+    }
+    
+    .branchbodyprofilecontent {
+        position: relative;
+        margin-left: 0%;
+        width: 80%;
+        padding: 10px;
+    }
+    
+    .branchbodyprofilecontent button {
+        border: none;
+        padding: 10px;
+        color: #ff9334;
+    }
+    
+    .branchbodyprofiletime {
+        height: 100px;
+        position: relative;
+        background-color: rgb(226, 225, 225);
+        right: 0px;
+        width:100%;
+        padding: 20px;
+    }
+    
+    .ratingusericon {
+        background-color: silver;
+        border-radius: 30px;
+        padding: 20px;
+        margin-right: 10px;
+    }
+    
+    .userratingdiv {
+        padding: 10px;
+        display: flex;
+    }
+    
+    .viewallreviewsbutton {
+        background-color: rgb(226, 225, 225);
+        color: blue;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .mealname {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+}
+
+/*medium screens*/
+@media only screen and (min-width: 450px) and (max-width : 1020px) {
+    .carticonno{
+        margin-left: 50%;
+        margin-top: 10%;
+    }
+    .branchbody {
+        background-color: rgb(226, 225, 225);
+        padding: 20px;
+        width: 100%;
+    
+    }
+    
+    .branchbodyprofileimage {
+        height: 250px;
+        width: 40%;
+        border-radius: 20px;
+    }
+    
+    .branchbodyprofilecontent {
+        position: absolute;
+        margin-left: 40%;
+        width: 50%;
+        padding: 10px;
+    }
+    
+    .branchbodyprofilecontent button {
+        border: none;
+        padding: 10px;
+        color: #ff9334;
+    }
+    
+    .branchbodyprofiletime {
+        height: 100px;
+        position: relative;
+        background-color: rgb(226, 225, 225);
+        right: 0px;
+        width:100%;
+        padding: 20px;
+    }
+    
+    .ratingusericon {
+        background-color: silver;
+        border-radius: 30px;
+        padding: 20px;
+        margin-right: 10px;
+    }
+    
+    .userratingdiv {
+        padding: 10px;
+        display: flex;
+    }
+    
+    .viewallreviewsbutton {
+        background-color: rgb(226, 225, 225);
+        color: blue;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .mealname {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+  
+
+}
+  /*tablet*/
+  @media only screen and (min-width: 780px) and (max-width : 1200px) {
+    .carticonno{
+        margin-left: 70%;
+        margin-top: 5%;
+    }
+  }

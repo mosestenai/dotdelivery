@@ -2,17 +2,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
 import {
-    FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid,
+    FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid, FaDollarSign,
     FaFile, FaSignOutAlt, FaLocationArrow, FaClock, FaQuestionCircle, FaFacebookMessenger, FaIdCard,
     FaStar, FaUtensils
 } from 'react-icons/fa';
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getRestaurantSessionName, getLocalStorageUser, logoutUser, getBranchSessiondetails } from "./../Utils/common";
+import { getRestaurantSessionName, getLocalStorageUser, logoutUser, getBranchSessiondetails,getcartSessionno } from "./../Utils/common";
 import { collection, getDocs, query, where, orderBy, startAt, endAt } from "@firebase/firestore"
 import Geocode from "react-geocode";
 import "./../../css/branch.css";
+import Countdown from 'react-countdown';
 
 
 let color = "#ff9334";
@@ -21,7 +22,11 @@ let type = "spinningBubbles";
 
 const Viewbranch = () => {
     const navigate = useNavigate();
+    const cartno = getcartSessionno();
     const user = getLocalStorageUser();
+    if (!user) {
+        navigate("/")
+    }
     const branch = getBranchSessiondetails();
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState('');
@@ -43,12 +48,33 @@ const Viewbranch = () => {
     useEffect(() => {
 
         getlocation();
-        fetchBranches();
+        fetchMeals();
+        fetchreviews();
 
     }, [])
 
+    var currentdate = new Date();
+    var currentTime = currentdate.getHours() + ":" + currentdate.getMinutes();
+
+
+    var fg = currentdate.getFullYear() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getDate() + " " + branch.closingTime + ":" + "00";
+
+    var diff = Math.abs(new Date() - new Date(fg));
+
+
+
+    // Renderer callback with condition
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+            // Render a completed state
+            return <Completionist />;
+        } else {
+            // Render a countdown
+            return <span>{hours}:{minutes}:{seconds}</span>;
+        }
+    };
     //fetch branches with restaurant name
-    const fetchBranches = () => {
+    const fetchMeals = () => {
         const getuse = query(collection(db, "meals"), where("restaurant", "==", branch.restaurant));
 
         /*  const data = await getDocs(menucollection);
@@ -59,6 +85,24 @@ const Viewbranch = () => {
                 setloading(false)
                 setmeals(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
                 setdisplay(true)
+            })
+            .catch(function (error) {
+                seterror("Error getting documents: ", error);
+            });
+
+    }
+
+    //fetch branches with restaurant name
+    const fetchreviews = () => {
+        const getuse = query(collection(db, "reviews"), where("restaurant", "==", branch.restaurant));
+
+        /*  const data = await getDocs(menucollection);
+          setmenu(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));*/
+
+        getDocs(getuse).
+            then(function (querySnapshot) {
+                setloading(false)
+                setreviews(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
             })
             .catch(function (error) {
                 seterror("Error getting documents: ", error);
@@ -116,13 +160,54 @@ const Viewbranch = () => {
 
     }
 
+    //scroll page to view all restaurants
+    const viewallreviews = () => {
+        document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+
     const onlogout = () => {
         logoutUser();
         navigate("/");
     }
 
+    const Completionist = () => <span>Shop closed!</span>;
 
 
+    const Stars = ({ rating }) => {
+
+        if (rating > 4) {
+            return <div>
+                <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" />
+            </div>
+        }
+        if (rating > 3.9 && rating < 5) {
+            return <div>
+                <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="gray" />
+            </div>
+        }
+        if (rating > 2.9 && rating < 4) {
+            return <div>
+                <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="gray" /><FaStar color="gray" />
+            </div>
+        }
+        if (rating > 1.9 && rating < 3) {
+            return <div>
+                <FaStar color="#ff9334" /><FaStar color="#ff9334" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
+            </div>
+        }
+        if (rating > 0.9 && rating < 2) {
+            return <div>
+                <FaStar color="#ff9334" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
+            </div>
+        }
+        if (rating < 0.9) {
+            return <div>
+                <FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
+            </div>
+        }
+    }
 
 
     return (
@@ -181,42 +266,108 @@ const Viewbranch = () => {
                 }} />
 
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
-                <div className="userslocation" style={{ opacity: opacity }}>
-                    <FaMapMarker className="userslocationicon" />
-                    <p>{useraddress.substring(10, 31)}</p>
+                <div className="carticonno" style={{ opacity: opacity }}>
+                    <FaShoppingCart /> {cartno? cartno : "0"} . Cart
                 </div>
             </div>
-           
-                <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
-                    <div className="branchbody">
-                    <img src={branch.branchImg} /><br />
-                        </div>
-                    <div className="foodsheader" >
-                        Meals
-                    </div>
-                    {display ?
-                        <div className="foodswrap">
-                            {meals?.map((val, key) => {
 
-
-                                return (
-                                    <div className="foods" key={key} onClick={() => {
-                                        navigate("/viewmenumeal")
-                                    }}>
-                                        {/*<FaHeart className="likeicon" />*/}
-                                        <img src={val.mealImage} /><br />
-                                        <div className="foodcontentdetails">
-                                            <div className="foodrestaurant">{val.mealName.substring(0, 10)}</div>
-                                        </div>
-                                        <div className="fooddeliveryprice"><FaUtensils color="#ff9334" size={10} />{val.mealPrice}</div>
-                                    </div>
-                                )
-                            })}
-
-                        </div>
-                        : <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
+            <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
+                <div className="foodsheader" >
+                    {branch.branch}
                 </div>
-            
+                <div className="branchbodyprofiletime">
+                    <button>Working hours</button><br /><br />
+                    <hr />
+                    <b> Opening Time:</b> {branch.openingTime} am<br />
+                    <b>Closing Time:</b>  {branch.closingTime} pm<br />
+                    <br />
+                    Closing in  <Countdown
+                        date={Date.now() + diff}
+                        renderer={renderer}
+                    />
+                </div>
+                <div className="branchbody">
+
+                    <div className="branchbodyprofilecontent">
+                        <button>Official store</button><br /><br />
+                        <hr />
+                        <FaMapMarker color="#ff9334" /> {branch.branchAddress}
+                        <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(branch.latitude, branch.longitude, latitude, longitude)}km away)</div>
+                        <br />
+                        <div><b>Reviews</b> <button onClick={viewallreviews} className="viewallreviewsbutton" style={{ color: "blue" }}>View all</button></div>
+                        {display &&
+                            reviews.length > 0 ?
+                            <div className="userratingdiv">
+                                <FaUser className="ratingusericon" />
+                                <div>
+                                    <div>{reviews[0]?.ratedByName}<br />
+                                    </div>
+                                    <div>{reviews[0]?.rating > 0 ? <Stars rating={reviews[0]?.rating} /> :
+                                        <div>
+                                            <FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
+                                        </div>
+                                    }</div>
+                                </div>
+                            </div> : <duv>No reviews yet</duv>
+                        }
+
+                    </div>
+                    <img src={branch.branchImg} className="branchbodyprofileimage" /><br />
+                </div>
+
+                <div className="foodsheader" >
+                    Meals
+                </div>
+                {display &&
+                    <div className="foodswrap">
+                        {meals?.map((val, key) => {
+
+
+                            return (
+                                <div className="foods" key={key} onClick={() => {
+                                    navigate("/viewmenumeal")
+                                }}>
+                                    {/*<FaHeart className="likeicon" />*/}
+                                    <img src={val.mealImage} /><br />
+
+                                    <div className="mealname">{val.mealName}</div>
+
+                                    <div>{val.mealDesc}</div>
+                                    <div className="fooddeliveryprice" >Bwp {val.mealPrice}.00</div>
+                                   
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
+                <div className="foodsheader" id="reviews" >
+                    Reviews
+                </div>
+                {display &&
+                    reviews.length > 0 ?
+                    <div className="foodswrap">
+                        {reviews?.map((val, key) => {
+
+                            return (
+                                <div className="userratingdiv" key={key}>
+                                    <FaUser className="ratingusericon" />
+                                    <div>
+                                        <div>{val.ratedByName}<br />
+                                        </div>
+                                        <div>{val.rating > 0 ? <Stars rating={val.rating} /> :
+                                            <div>
+                                                <FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" /><FaStar color="gray" />
+                                            </div>
+                                        }</div>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div> :
+                    <div>No reviews yet</div>
+                }
+            </div>
+
             {error && < h5 align="middle" style={{ color: "red" }}>{error}</h5>}
             {loading && <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
 
