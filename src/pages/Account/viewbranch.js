@@ -3,13 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import {
     FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid, FaDollarSign,
-    FaFile, FaSignOutAlt, FaLocationArrow, FaClock, FaQuestionCircle, FaFacebookMessenger, FaIdCard,
+    FaFile, FaSignOutAlt, FaLocationArrow, FaClock, FaQuestionCircle, FaFacebookMessenger, FaIdCard, FaPlusCircle,
     FaStar, FaUtensils
 } from 'react-icons/fa';
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getRestaurantSessionName, getLocalStorageUser, logoutUser, getBranchSessiondetails,getcartSessionno } from "./../Utils/common";
+import { getLocalStorageUser, logoutUser, getBranchSessiondetails, getcartSessionno, setcartSession, getcartSession, setcartSessionno } from "./../Utils/common";
 import { collection, getDocs, query, where, orderBy, startAt, endAt } from "@firebase/firestore"
 import Geocode from "react-geocode";
 import "./../../css/branch.css";
@@ -24,16 +24,17 @@ const Viewbranch = () => {
     const navigate = useNavigate();
     const cartno = getcartSessionno();
     const user = getLocalStorageUser();
-    if (!user) {
-        navigate("/")
-    }
+
+    const cartitems = getcartSession();
     const branch = getBranchSessiondetails();
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState('');
-
+    const [confirmcart, setconfirmcart] = useState(false);
     const [meals, setmeals] = useState([]);
     const [reviews, setreviews] = useState([]);
     const [display, setdisplay] = useState(false);
+    const [cartitem, setcartitem] = useState('');
+    const [error2, seterror2] = useState('');
 
     const [longitude, setlongitude] = useState('');
     const [latitude, setlatitude] = useState('');
@@ -210,6 +211,9 @@ const Viewbranch = () => {
     }
 
 
+
+
+
     return (
         <div style={{ paddingTop: 0, backgroundColor: "white" }}>
             <div className="userheader">
@@ -222,6 +226,7 @@ const Viewbranch = () => {
                         setopacity(1)
                     }}>No</button>
                 </div>}
+
                 {displaysidenav &&
                     <div className="userssidemenu " style={{ opacity: opacity }}>
                         <FaTimes className="sidecancel" style={{ marginTop: 20 }} onClick={() => {
@@ -260,14 +265,15 @@ const Viewbranch = () => {
                     </div>
                 }
 
-                <FaBars className="usersbarsicon" onClick={() => {
+               {user && <FaBars className="usersbarsicon" onClick={() => {
                     setscroll('hidden')
                     setdisplaysidenav(true)
-                }} />
+                }} />}
 
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
-                <div className="carticonno" style={{ opacity: opacity }}>
-                    <FaShoppingCart /> {cartno? cartno : "0"} . Cart
+                <div className="carticonno" id="cartdiv" style={{ opacity: opacity ,cursor:"pointer"}} 
+                onClick={user?()=>navigate("/mycart"):()=>navigate("/login")}>
+                    <FaShoppingCart color="#ff9334" /> {cartno ? cartno : "0"} . Cart
                 </div>
             </div>
 
@@ -322,19 +328,94 @@ const Viewbranch = () => {
                     <div className="foodswrap">
                         {meals?.map((val, key) => {
 
+                            //add item to cart
+                            const addtocart = () => {
+                                setconfirmcart(false)
+
+
+                                //push item to cartsession
+                                if (!cartitems) {
+                                    seterror2(null)
+                                    //add one to cart item no
+                                    const finalcartno = cartno + 1;
+                                    setcartSessionno(finalcartno);
+                                    const fg = [];
+                                    const item = {
+                                        "itemimg": val.mealImage,
+                                        "itemdescription": val.mealDesc,
+                                        "itemprice": val.mealPrice,
+                                        "id": val.id,
+                                        "itemname": val.mealName,
+                                        "restaurant": val.restaurant,
+                                        "restaurantId": branch.restId,
+                                        "branch": branch.branch,
+                                        "itemquantity": 1
+                                    }
+                                    fg.push(item)
+                                    setcartSession(fg)
+                                    document.getElementById("cartdiv").scrollIntoView({ behavior: 'smooth' });
+                                    console.log(cartitems)
+                                } else {
+                                    var index = cartitems.findIndex(obj => obj?.id == val.id);
+                                    if (index === -1) {
+                                        //add one to cart item no
+                                        const finalcartno = cartno + 1;
+                                        setcartSessionno(finalcartno);
+                                        const item = {
+                                            "itemimg": val.mealImage,
+                                            "itemdescription": val.mealDesc,
+                                            "itemprice": val.mealPrice,
+                                            "id": val.id,
+                                            "restaurant": val.restaurant,
+                                            "itemname": val.mealName,
+                                            "restaurantId": branch.restId,
+                                            "branch": branch.branch,
+                                            "itemquantity": 1
+                                        }
+                                        cartitems.push(item)
+                                        setcartSession(cartitems)
+                                        document.getElementById("cartdiv").scrollIntoView({ behavior: 'smooth' });
+                                        console.log(cartitems)
+
+                                    } else {
+                                        seterror2("item in cart.Visit cart to add quantity")
+                                    }
+
+                                }
+
+                            }
+
 
                             return (
-                                <div className="foods" key={key} onClick={() => {
-                                    navigate("/viewmenumeal")
-                                }}>
+                                <div className="foods" key={key} >
                                     {/*<FaHeart className="likeicon" />*/}
                                     <img src={val.mealImage} /><br />
 
-                                    <div className="mealname">{val.mealName}</div>
+                                    <div style={{ display: "flex" }}><div className="mealname">{val.mealName}</div>
+                                        <FaPlusCircle onClick={() => {
+                                            setconfirmcart(true)
+                                            setcartitem(val)
+                                            seterror2(null)
+                                            //setopacity(0)
+                                        }} className="addtocarticon" />
+                                    </div>
 
                                     <div>{val.mealDesc}</div>
                                     <div className="fooddeliveryprice" >Bwp {val.mealPrice}.00</div>
-                                   
+                                    {cartitem == val && <div style={{ color: "red", fontSize: 15 }}>{error2}</div>}
+                                    {confirmcart && cartitem == val && <div>
+                                        Confirm add<br />
+                                        <button onClick={addtocart} style={{
+                                            width: "45%",
+                                            border: "none",
+                                            backgroundColor: "#ff9334",
+                                            color: "white",
+                                            padding: 3,
+                                            cursor:"pointer",
+                                            borderRadius: 5
+                                        }}>Add</button> <button onClick={() => setconfirmcart(false)}>cancel</button>
+                                    </div>}
+
                                 </div>
                             )
                         })}

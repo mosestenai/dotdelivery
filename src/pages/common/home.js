@@ -99,8 +99,8 @@ const Home = () => {
                     </p>
                     <div className="wrapform">
                         <input type="text" className="deliverylocationinput" placeholder="Enter your delivery location" />
-                        <button className="locateme">LOCATE ME</button>
-                        <button className="searchfoodbutton">FIND FOOD</button>
+                        <button className="locateme" onClick={()=>navigate("/fetchfoods")}>LOCATE ME</button>
+                        <button className="searchfoodbutton"  onClick={()=>navigate("/fetchfoods")}>FIND FOOD</button>
                     </div>
                 </div>
             </div>

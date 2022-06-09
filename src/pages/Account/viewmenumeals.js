@@ -8,7 +8,7 @@ import {
 import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import ReactLoading from 'react-loading';
-import { getRestaurantSessionName, getLocalStorageUser, logoutUser ,setBranchSessiondetails} from "./../Utils/common";
+import { getRestaurantSessionName, getLocalStorageUser, logoutUser ,setBranchSessiondetails,getcartSessionno} from "./../Utils/common";
 import { collection, getDocs, query, where, orderBy, startAt, endAt } from "@firebase/firestore"
 import Geocode from "react-geocode";
 
@@ -19,10 +19,9 @@ let type = "spinningBubbles";
 
 const Viewmenumeals = () => {
     const navigate = useNavigate();
+    const cartno = getcartSessionno();
     const user = getLocalStorageUser();
-    if (!user) {
-        navigate("/")
-    }
+   
     const restaurantname = getRestaurantSessionName();
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState('');
@@ -174,18 +173,18 @@ const Viewmenumeals = () => {
                     </div>
                 }
 
-                <FaBars className="usersbarsicon" onClick={() => {
+              {user &&  <FaBars className="usersbarsicon" onClick={() => {
                     setscroll('hidden')
                     setdisplaysidenav(true)
-                }} />
+                }} />}
 
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
                 <div className="userslocation" style={{ opacity: opacity }}>
                     <FaMapMarker className="userslocationicon" />
                     <p>{useraddress.substring(10, 31)}</p>
                 </div>
-                <div className="carticon" style={{ opacity: opacity }}>
-                    <FaShoppingCart /> 0 . Cart
+                <div className="carticon" style={{ opacity: opacity }}   onClick={user?()=>navigate("/mycart"):()=>navigate("/login")}>
+                <FaShoppingCart color="#ff9334" /> {cartno ? cartno : "0"} . Cart
                 </div>
             </div>
             {display &&

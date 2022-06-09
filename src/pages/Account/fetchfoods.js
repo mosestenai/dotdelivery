@@ -8,7 +8,7 @@ import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getSessionUser, getLocalStorageUser, logoutUser, setRestaurantSessionName } from "./../Utils/common";
+import { getSessionUser, getLocalStorageUser, logoutUser, setRestaurantSessionName ,getcartSessionno} from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
 import { useNavigate } from "react-router-dom";
 import Geocode from "react-geocode";
@@ -23,6 +23,7 @@ const Fetchfoods = () => {
 
     const user = getLocalStorageUser();
     const navigate = useNavigate();
+    const cartno = getcartSessionno();
     const [display, setdisplay] = useState(false);
 
     const [displaysidenav, setdisplaysidenav] = useState(false);
@@ -44,9 +45,6 @@ const Fetchfoods = () => {
 
     const restaurantscollectionRef = collection(db, "branches");
     const menucollection = collection(db, "menus")
-    if (!user) {
-        navigate("/")
-    }
 
 
     useEffect(() => {
@@ -201,10 +199,10 @@ const Fetchfoods = () => {
                     </div>
                 }
 
-                <FaBars className="usersbarsicon" onClick={() => {
+             {user &&  <FaBars className="usersbarsicon" onClick={() => {
                     setscroll('hidden')
                     setdisplaysidenav(true)
-                }} />
+                }} />}
 
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
                 <div className="userslocation" style={{ opacity: opacity }}>
@@ -215,9 +213,9 @@ const Fetchfoods = () => {
                     <input type="text" className="foodheadersearchinput" />
                     <FaSearch className="searchicon" />
                 </div>
-                <div className="wrapcart" style={{ opacity: opacity }}>
+                <div className="wrapcart" style={{ opacity: opacity }}  onClick={user?()=>navigate("/mycart"):()=>navigate("/login")}>
                     <FaShoppingCart className="userslocationicon" />
-                    <p>0 . Cart</p>
+                    <p> {cartno ? cartno : "0"}  Cart</p>
                 </div>
             </div>
 
