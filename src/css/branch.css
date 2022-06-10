@@ -44,7 +44,17 @@
     width: 300px;
     padding: 10px;
 }
-
+.cartsummarydiv {
+    height: 325px;
+    position: absolute;
+    background-color: rgb(226, 225, 225);
+    right: 50px;
+    width: 350px;
+    padding: 20px;
+}
+.cartsummarydivphone{
+    display: none;
+}
 .ratingusericon {
     background-color: silver;
     border-radius: 30px;
@@ -148,9 +158,37 @@ font-size: 20px;
     font-size: 20px;
     font-weight: bold;
 }
+.itemcartcontent::-webkit-scrollbar {
+    display: none;
+}
+
 
 /*small screens*/
 @media only screen and (max-width : 450px) {
+    .bottomcartbuttons{
+        margin-left: 20%;
+        display: flex;
+        font-size: 30px;
+    }
+    .cartitemprice{
+        margin-left: 2%;
+        font-weight: bold;
+        font-size: 20px;
+        }
+    .itemcartcontent{
+        width: 50%;
+        height: 100px;
+        overflow:auto;
+    }
+   
+    .cartsummarydivphone{
+        display:inline;
+        margin-top: 30px;
+        border-radius: 5px;
+    }
+    .cartsummarydiv{
+        display: none;
+    }
     .confirmcartdiv {
         background-color: white;
         position: absolute;
@@ -227,6 +265,31 @@ font-size: 20px;
 
 /*medium screens*/
 @media only screen and (min-width: 450px) and (max-width : 1020px) {
+   
+    .bottomcartbuttons{
+        margin-left: 60%;
+        display: flex;
+        font-size: 30px;
+    }
+    .cartitemprice{
+        margin-left: 10%;
+        font-weight: bold;
+        font-size: 20px;
+        }
+    .itemcartcontent{
+        width: 50%;
+        height: 100px;
+        overflow:auto;
+    }
+   
+    .cartsummarydivphone{
+        display:inline;
+        margin-top: 30px;
+        border-radius: 5px;
+    }
+    .cartsummarydiv{
+        display: none;
+    }
     .carticonno{
         margin-left: 50%;
         margin-top: 10%;
@@ -295,6 +358,26 @@ font-size: 20px;
 }
   /*tablet*/
   @media only screen and (min-width: 780px) and (max-width : 1200px) {
+   
+    .carticonno{
+        margin-left: 70%;
+        margin-top: 5%;
+    }
+  }
+  @media only screen and (min-width: 1020px) and (max-width : 1200px) {
+    .cartsummarydiv {
+        height: 325px;
+        position: absolute;
+        background-color: rgb(226, 225, 225);
+        right: 0px;
+        width: 330px;
+        padding: 10px;
+    }
+    .cartsumno{
+        margin-left: 50%;
+        font-size: 30px;
+        font-weight: bold;
+    }
     .carticonno{
         margin-left: 70%;
         margin-top: 5%;

@@ -9,7 +9,6 @@ import Fetchfoods from "./pages/Account/fetchfoods";
 import Viewmenumeals from "./pages/Account/viewmenumeals";
 import Viewbranch from "./pages/Account/viewbranch";
 import Mycart from "./pages/Account/cart";
-import Basicfetchfoods from "./pages/common/basicfetchfoods";
 
 
 
@@ -29,7 +28,6 @@ const App = () => {
           <Route path="/viewmenumeal" element={<Viewmenumeals/>} exact/>
           <Route path="/viewbranch" element={<Viewbranch/>} exact/>
           <Route path="/mycart" element={<Mycart/>} exact />
-          <Route path="/basicfetchfoods" element={<Basicfetchfoods/>} exact/>
         </Routes>
       </div>
 

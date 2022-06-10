@@ -28,7 +28,7 @@ const Mycart = () => {
     const user = getLocalStorageUser();
 
     useEffect(() => {
-        getsum(cartitems);
+        getsum(cartitems? cartitems: []);
     }, [])
 
     const navigate = useNavigate();
@@ -167,7 +167,7 @@ const Mycart = () => {
 
             <div className="foodsandheaderwrap" style={{ opacity: opacity, paddingBottom: 300 }}>
 
-                <div className="branchbodyprofiletime">
+                <div className="cartsummarydiv">
                     <div className="foodsheader" >
                         Cart Summary
                     </div>
@@ -269,9 +269,24 @@ const Mycart = () => {
 
 
                 </div>
-
-
-
+                <div className="cartsummarydivphone">
+                    <br />
+                    <div className="foodsheader" >
+                        Cart Summary
+                    </div>
+                    <br />
+                    <hr style={{ fontSize: 0.5 }} color="#d3d1cd" /><br />
+                    <div style={{ display: "flex" }}>
+                        <div>Subtotal </div> <div className="cartsumno">Bwp {cartsum}</div>
+                    </div>
+                    <br />
+                    <hr style={{ fontSize: 0.5 }} color="#d3d1cd" />
+                    <br />
+                    <FaUserCheck size={20} color="#ff9334" style={{ marginRight: 5 }} /> Dot Delivery<br /><br />
+                    <br />
+                    <button className="checkoutbutton">CHECKOUT BWP {cartsum}</button>
+                    <br />
+                </div>
 
             </div>
 
