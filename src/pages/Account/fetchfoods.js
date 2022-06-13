@@ -6,7 +6,6 @@ import {
 } from 'react-icons/fa';
 import "./../../css/users.css";
 import { db } from "./../../firebase-config";
-import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
 import { getSessionUser, getLocalStorageUser, logoutUser, setRestaurantSessionName ,getcartSessionno} from "./../Utils/common";
 import { collection, getDocs, query, where } from "@firebase/firestore"
@@ -226,13 +225,11 @@ const Fetchfoods = () => {
                     <div className="iconfoods"><img src={require('./../../assets/icon3.png')} /><br />Alcohol</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon4.png')} /><br />Pharmacy</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon5.png')} /><br />Flowers</div>
-                    <div className="iconfoods"><img src={require('./../../assets/icon6.png')} /><br />Highest<br /> rated</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon7.png')} /><br />Pizza</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon8.png')} /><br />Mexican</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon9.png')} /><br />Italian</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon10.png')} /><br />Sandwich</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon11.png')} /><br />Healthy</div>
-                    <div className="iconfoods"><img src={require('./../../assets/icon12.png')} /><br />Coffee and<br /> Tea</div>
                     <div className="iconfoods"><img src={require('./../../assets/icon13.png')} /><br />Burgers</div>
                 </div>
                 <hr />

@@ -45,7 +45,7 @@
     padding: 10px;
 }
 .cartsummarydiv {
-    height: 325px;
+    height: 365px;
     position: absolute;
     background-color: rgb(226, 225, 225);
     right: 50px;
@@ -366,7 +366,7 @@ font-size: 20px;
   }
   @media only screen and (min-width: 1020px) and (max-width : 1200px) {
     .cartsummarydiv {
-        height: 325px;
+        height: 350px;
         position: absolute;
         background-color: rgb(226, 225, 225);
         right: 0px;

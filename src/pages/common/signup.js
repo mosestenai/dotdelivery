@@ -4,8 +4,8 @@ import "./../../css/login.css"
 import { useNavigate } from "react-router-dom";
 import { auth } from "./../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setUserSession,setLocalStorageUser } from "./../Utils/common";
-import { collection, getDocs,query,where } from "@firebase/firestore"
+import { setUserSession, setLocalStorageUser } from "./../Utils/common";
+import { collection, getDocs, query, where,addDoc,setDoc,doc } from "@firebase/firestore"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { db } from "./../../firebase-config";
@@ -21,6 +21,9 @@ const Signup = () => {
 
     const [latitude, setlatitude] = useState('');
     const [longitude, setlongitude] = useState('');
+    const [countryin, setcountryin] = useState('BW');
+    const [country, setcountry] = useState('');
+    const [username, setusername] = useState('');
 
     const navigate = useNavigate();
 
@@ -97,7 +100,7 @@ const Signup = () => {
         getDocs(getuse).then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 // doc.data() is never undefined for query doc snapshots
-                setLocalStorageUser((doc.id,"=>",doc.data()))
+                setLocalStorageUser((doc.id, "=>", doc.data()))
                 setloading(false)
                 navigate("/fetchfoods")
             });
@@ -107,10 +110,19 @@ const Signup = () => {
             });
     }
 
-
+    const regionNames = new Intl.DisplayNames(
+        ['en'], { type: 'region' }
+    );
+   
+   
+  
 
     const handlesignup = async () => {
         setloading(true)
+        seterror(null)
+       
+        var currentdate = new Date();
+        const myname = username?.split(" ");
 
         if (!email || !password1 || !password2) {
 
@@ -118,7 +130,7 @@ const Signup = () => {
         else if (password1 !== password2) {
             seterror("passwords provided do not match")
         }
-        else if(!latitude || !longitude){
+        else if (!latitude || !longitude) {
             getlocation();
         }
         else {
@@ -131,14 +143,40 @@ const Signup = () => {
                 );
 
                 if (user.user.email) {
-                   
-                    getUser(user.user.email)
+                  
+                    try{
+                        const add =  await setDoc(doc(db, "users", user.user.uid), {
+                            countryCode: phone.substring(0,4),
+                            country: country,
+                            email:email,
+                            phoneNumber: phone,
+                            unid: user.user.uid,
+                            type: "User",
+                            status: "active",
+                            timestamp: currentdate,
+                            statusCode: 1,
+                            fromApp: "Dot delivery site" ,
+                            firstName: myname[0] && myname[0],
+                            lastName: myname[1] && myname[1]  ,
+                            displayName: username,
+                        });
+                 
+                    if(!add){
+                        getUser(user.user.email)
+                    }
+                }catch(error){
+                    setloading(false)
+                    console.log(error.message)
+                }
+                  
                 } else {
                     setloading(false)
                     seterror("there was an internal error. contact admin")
                 }
             } catch (error) {
-                seterror("there was an error")
+                setloading(false)
+                seterror(error.message)
+                
             }
 
         }
@@ -193,6 +231,7 @@ const Signup = () => {
                         placeholder="Enter phone number"
                         value={phone}
                         defaultCountry="BW"
+                        onCountryChange={setcountryin}
                         onChange={setphone} />
 
                     <div className="continuedetails">
@@ -203,7 +242,10 @@ const Signup = () => {
                     <div style={{ color: "red" }}>{error}</div>
 
                     <div className="nextbutton"
-                        onClick={checkphone}
+                        onClick={()=>{
+                            setcountry(regionNames.of(countryin))
+                            checkphone();
+                        }}
                         style={{
                             color: !phone ? "gray" : "white",
                             backgroundColor: !phone ? "white" : "#ff9334",
@@ -255,11 +297,13 @@ const Signup = () => {
             {
                 passwords &&
                 <div className="loginform">
-                    <p className="loginquestion"> Enter your password and<br /> confirm</p>
+                    <p className="loginquestion"> Enter your username and<br /> password</p>
+                    <input type="text" className="logininput" placeholder="Username" value={username} onChange={(e) => setusername(e.target.value)} />
+                    <br /><br />
                     <input type="password" className="logininput" placeholder="password" value={password1} onChange={(e) => setpassword1(e.target.value)} />
                     <br /><br />
                     <input type="password" className="logininput" placeholder="confirm password" value={password2} onChange={(e) => setpassword2(e.target.value)} />
-                    <div style={{ fontSize: 10, color: "red", fontFamily: "cursive" }}>*passwords must be 6 or more characters long</div>
+                    <div style={{ fontSize: 10, color: "maroon", fontFamily: "cursive" }}>*passwords must be 6 or more characters long</div>
                     <div className="continuedetails">
                         By proceeding, you consent to get calls, WhatsApp or<br />
                         SMS messages, including by automated means, from Dot<br /> delivery

@@ -7,9 +7,8 @@ import {
     FaStar, FaUtensils
 } from 'react-icons/fa';
 import { db } from "./../../firebase-config";
-import SlidingPanel from 'react-sliding-side-panel';
 import ReactLoading from 'react-loading';
-import { getLocalStorageUser, logoutUser, getBranchSessiondetails, getcartSessionno, setcartSession, getcartSession, setcartSessionno } from "./../Utils/common";
+import { getLocalStorageUser, logoutUser, getBranchSessiondetails, getcartSessionno, setcartSession, getcartSession, setcartSessionno, getRestaurantSessionName } from "./../Utils/common";
 import { collection, getDocs, query, where, orderBy, startAt, endAt } from "@firebase/firestore"
 import Geocode from "react-geocode";
 import "./../../css/branch.css";
@@ -24,6 +23,7 @@ const Viewbranch = () => {
     const navigate = useNavigate();
     const cartno = getcartSessionno();
     const user = getLocalStorageUser();
+    const restaurantname = getRestaurantSessionName();
 
     const cartitems = getcartSession();
     const branch = getBranchSessiondetails();
@@ -128,6 +128,7 @@ const Viewbranch = () => {
     function toRad(Value) {
         return Value * Math.PI / 180;
     }
+
     //get user location address based on his/her cordinates
     const getaddress = (long, lat) => {
         Geocode.setApiKey(process.env.REACT_APP_MAP_API_KEY);
@@ -265,14 +266,14 @@ const Viewbranch = () => {
                     </div>
                 }
 
-               {user && <FaBars className="usersbarsicon" onClick={() => {
+                {user && <FaBars className="usersbarsicon" onClick={() => {
                     setscroll('hidden')
                     setdisplaysidenav(true)
                 }} />}
 
                 <img src={require('./../../assets/homelogo.jpg')} className="usershomelogo" />
-                <div className="carticonno" id="cartdiv" style={{ opacity: opacity ,cursor:"pointer"}} 
-                onClick={user?()=>navigate("/mycart"):()=>navigate("/login")}>
+                <div className="carticonno" id="cartdiv" style={{ opacity: opacity, cursor: "pointer" }}
+                    onClick={user ? () => navigate("/mycart") : () => navigate("/login")}>
                     <FaShoppingCart color="#ff9334" /> {cartno ? cartno : "0"} . Cart
                 </div>
             </div>
@@ -324,10 +325,11 @@ const Viewbranch = () => {
                 <div className="foodsheader" >
                     Meals
                 </div>
+
                 {display &&
                     <div className="foodswrap">
                         {meals?.map((val, key) => {
-
+                          
                             //add item to cart
                             const addtocart = () => {
                                 setconfirmcart(false)
@@ -345,11 +347,21 @@ const Viewbranch = () => {
                                         "itemdescription": val.mealDesc,
                                         "itemprice": val.mealPrice,
                                         "id": val.id,
-                                        "itemname": val.mealName,
                                         "restaurant": val.restaurant,
+                                        "itemname": val.mealName,
                                         "restaurantId": branch.restId,
                                         "branch": branch.branch,
-                                        "itemquantity": 1
+                                        "itemquantity": 1,
+                                        "branchManager": branch.managerFullName,
+                                        "branchEmail": branch.branchEmail,
+                                        "branchId": branch.branchId,
+                                        "branchImg": branch.branchImg,
+                                        "branchLat": branch.latitude,
+                                        "branchLng": branch.longitude,
+                                        "branchAddress": branch.branchAddress,
+                                        "branchPhone": branch.branchPhone,
+                                        "menu": restaurantname.menuName,
+                                        "menuId": restaurantname.menuId
                                     }
                                     fg.push(item)
                                     setcartSession(fg)
@@ -357,26 +369,41 @@ const Viewbranch = () => {
                                     console.log(cartitems)
                                 } else {
                                     var index = cartitems.findIndex(obj => obj?.id == val.id);
+                                    var branchcheck = cartitems.findIndex(obj => obj?.branch == branch.branch);
                                     if (index === -1) {
                                         //add one to cart item no
-                                        const finalcartno = cartno + 1;
-                                        setcartSessionno(finalcartno);
-                                        const item = {
-                                            "itemimg": val.mealImage,
-                                            "itemdescription": val.mealDesc,
-                                            "itemprice": val.mealPrice,
-                                            "id": val.id,
-                                            "restaurant": val.restaurant,
-                                            "itemname": val.mealName,
-                                            "restaurantId": branch.restId,
-                                            "branch": branch.branch,
-                                            "itemquantity": 1
-                                        }
-                                        cartitems.push(item)
-                                        setcartSession(cartitems)
-                                        document.getElementById("cartdiv").scrollIntoView({ behavior: 'smooth' });
-                                        console.log(cartitems)
+                                        if (branchcheck === -1) {
+                                            seterror2("You can't shop from different restaurants")
+                                        } else {
+                                            const finalcartno = cartno + 1;
+                                            setcartSessionno(finalcartno);
+                                            const item = {
+                                                "itemimg": val.mealImage,
+                                                "itemdescription": val.mealDesc,
+                                                "itemprice": val.mealPrice,
+                                                "id": val.id,
+                                                "restaurant": val.restaurant,
+                                                "itemname": val.mealName,
+                                                "restaurantId": branch.restId,
+                                                "branch": branch.branch,
+                                                "itemquantity": 1,
+                                                "branchManager": branch.managerFullName,
+                                                "branchEmail": branch.branchEmail,
+                                                "branchId": branch.branchId,
+                                                "branchImg": branch.branchImg,
+                                                "branchLat": branch.latitude,
+                                                "branchAddress": branch.branchAddress,
+                                                "branchLng": branch.longitude,
+                                                "branchPhone": branch.branchPhone,
+                                                "menu": restaurantname.menuName,
+                                                "menuId": restaurantname.menuId
 
+                                            }
+                                            cartitems.push(item)
+                                            setcartSession(cartitems)
+                                            document.getElementById("cartdiv").scrollIntoView({ behavior: 'smooth' });
+                                            console.log(cartitems)
+                                        }
                                     } else {
                                         seterror2("item in cart.Visit cart to add quantity")
                                     }
@@ -390,7 +417,6 @@ const Viewbranch = () => {
                                 <div className="foods" key={key} >
                                     {/*<FaHeart className="likeicon" />*/}
                                     <img src={val.mealImage} /><br />
-
                                     <div style={{ display: "flex" }}><div className="mealname">{val.mealName}</div>
                                         <FaPlusCircle onClick={() => {
                                             setconfirmcart(true)
@@ -411,7 +437,7 @@ const Viewbranch = () => {
                                             backgroundColor: "#ff9334",
                                             color: "white",
                                             padding: 3,
-                                            cursor:"pointer",
+                                            cursor: "pointer",
                                             borderRadius: 5
                                         }}>Add</button> <button onClick={() => setconfirmcart(false)}>cancel</button>
                                     </div>}
