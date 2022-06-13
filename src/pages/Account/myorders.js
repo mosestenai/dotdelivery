@@ -1,31 +1,30 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import {
-    FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid,
+    FaBars, FaTimes, FaSearch, FaMapMarker, FaShoppingCart, FaHeart, FaUser, FaAndroid, FaMapMarkedAlt,
     FaFile, FaSignOutAlt, FaLocationArrow, FaClock, FaQuestionCircle, FaFacebookMessenger, FaIdCard,
     FaStar, FaUtensils
 } from 'react-icons/fa';
-import "./../../css/users.css";
 import { db } from "./../../firebase-config";
 import ReactLoading from 'react-loading';
-import { getRestaurantSessionName, getLocalStorageUser, logoutUser ,setBranchSessiondetails,getcartSessionno} from "./../Utils/common";
+import { getRestaurantSessionName, getLocalStorageUser, logoutUser, setBranchSessiondetails, getcartSessionno } from "./../Utils/common";
 import { collection, getDocs, query, where, orderBy, startAt, endAt } from "@firebase/firestore"
 import Geocode from "react-geocode";
+import "./../../css/orders.css";
 
 
 let color = "#ff9334";
 let type = "spinningBubbles";
 
 
-const Viewmenumeals = () => {
+const Myorders = () => {
     const navigate = useNavigate();
     const cartno = getcartSessionno();
     const user = getLocalStorageUser();
-   
-    const restaurantname = getRestaurantSessionName();
+
     const [loading, setloading] = useState(true);
     const [error, seterror] = useState('');
-    const [branches, setbranches] = useState([]);
+    const [orders, setorders] = useState([]);
     const [display, setdisplay] = useState(false);
 
     const [longitude, setlongitude] = useState('');
@@ -38,24 +37,27 @@ const Viewmenumeals = () => {
     const [showlogout, setshowlogout] = useState(false);
     const [opacity, setopacity] = useState(1);
 
+    const [showopenorders, setshowopenorders] = useState(true);
+    const [showclosedorders, setshowclosedorders] = useState(true);
+
+    //div colors
+    const [opencolor, setopencolor] = useState('#ff9334');
+    const [closedcolor, setclosedcolor] = useState('black');
+
     useEffect(() => {
 
         getlocation();
-        fetchBranches();
+        fetchOrders();
 
     }, [])
 
     //fetch branches with restaurant name
-    const fetchBranches = () => {
-        const getuse = query(collection(db, "branches"), where("restaurant", "==", restaurantname.restaurant));
-
-        /*  const data = await getDocs(menucollection);
-          setmenu(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));*/
-
+    const fetchOrders = () => {
+        const getuse = query(collection(db, "orders"), where("uid", "==", user.unid));
         getDocs(getuse).
             then(function (querySnapshot) {
                 setloading(false)
-                setbranches(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+                setorders(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
                 setdisplay(true)
             })
             .catch(function (error) {
@@ -99,6 +101,9 @@ const Viewmenumeals = () => {
         );
     }
 
+    var index = orders.findIndex(obj => obj?.orderStatus == "Cancelled");
+    var openordersnum = orders.findIndex(obj => obj?.orderStatus == "New");
+
     //get current user location
     const getlocation = () => {
         navigator.geolocation.getCurrentPosition(
@@ -118,6 +123,8 @@ const Viewmenumeals = () => {
         logoutUser();
         navigate("/");
     }
+
+    console.log(orders)
 
 
 
@@ -150,7 +157,7 @@ const Viewmenumeals = () => {
                         <div className="sidewrap2">
                             <div className="sidelinks">
                                 <div><FaUser className="link-icons" /> Profile details</div>
-                                <div  onClick={()=>navigate("/myorders")}><FaClock className="link-icons"   />My Orders</div>
+                                <div onClick={() => navigate("/myorders")}><FaClock className="link-icons" />My Orders</div>
                                 <div><FaFacebookMessenger className="link-icons" />My chats</div>
                                 <div><FaIdCard className="link-icons" />Payment details</div>
                                 <div><FaLocationArrow className="link-icons" />Delivery Address</div>
@@ -173,7 +180,7 @@ const Viewmenumeals = () => {
                     </div>
                 }
 
-              {user &&  <FaBars className="usersbarsicon" onClick={() => {
+                {user && <FaBars className="usersbarsicon" onClick={() => {
                     setscroll('hidden')
                     setdisplaysidenav(true)
                 }} />}
@@ -183,41 +190,74 @@ const Viewmenumeals = () => {
                     <FaMapMarker className="userslocationicon" />
                     <p>{useraddress.substring(10, 31)}</p>
                 </div>
-                <div className="carticon" style={{ opacity: opacity }}   onClick={user?()=>navigate("/mycart"):()=>navigate("/login")}>
-                <FaShoppingCart color="#ff9334" /> {cartno ? cartno : "0"} . Cart
+                <div className="carticon" style={{ opacity: opacity }} onClick={user ? () => navigate("/mycart") : () => navigate("/login")}>
+                    <FaShoppingCart color="#ff9334" /> {cartno ? cartno : "0"} . Cart
                 </div>
             </div>
-            {display &&
-                <div className="foodsandheaderwrap" style={{ opacity: opacity }}>
-                    <div className="foodsheader" >
-                        Restaurants({restaurantname.menuName})
-                    </div>
-                    {display ?
-                        <div className="foodswrap">
-                            {branches?.map((val, key) => {
+            <div className="foodsandheaderwrap" style={{ opacity: opacity, display: "flex", paddingBottom: 100 }}>
+                <div className="sidenavdivorders">
+                    <div><FaUser className="link-icons" /> My Dot Account</div>
+                    <div onClick={() => navigate("/myorders")}><FaClock className="link-icons" />My Orders</div>
+                    <div><FaFacebookMessenger className="link-icons" />My chats</div>
+                    <div><FaIdCard className="link-icons" />Payment details</div>
+                    <div><FaLocationArrow className="link-icons" />Delivery Address</div>
+                    <div><FaAndroid className="link-icons" />Help</div>
+                    <div><FaQuestionCircle className="link-icons" />Frequently asked questions</div>
+                    <div><FaFile className="link-icons" />Terms of Service</div>
+                    <hr style={{ fontSize: 0.5 }} color="#d3d1cd" />
+                    <button>LOGOUT</button>
+                </div>
+                <div style={{ width: "100%" }}>
+                    <div className="ordersdiv">
+                        <div className="foodsheader" >
+                            My Orders
+                        </div>
+                        <hr style={{ fontSize: 0.5 }} color="#d3d1cd" /><br />
+                        <div
+                            style={{ display: "flex" }}><div style={{
+                                margin: 10,
+                                marginRight: 30,
+                                color: opencolor,
+                                cursor: "pointer",
+                                borderBottom: "1px solid" + opencolor,
+                                paddingBottom: 10
+                            }}>OPEN ORDERS{openordersnum === -1 ? null : "(" + openordersnum + ")"}</div>
+                            <div
+                                onMouseEnter={() => setclosedcolor("#ff9334")}
+                                onMouseLeave={() => setclosedcolor("black")}
+                                style={{
+                                    margin: 10,
+                                    cursor: "pointer",
+                                    color: closedcolor
+                                }}>CLOSED ORDERS{index === -1 ? null : "(" + index + ")"}</div></div>
+                        {showopenorders &&
+                            orders?.map((val, key) => {
                                 return (
-                                    <div className="foods" key={key} onClick={()=>{
-                                        setBranchSessiondetails(val)
-                                        navigate("/viewbranch")
-                                    }}>
-                                        <img src={val.branchImg} /><br />
-                                        <div className="foodrestaurant">{val.branch}</div>
-                                        <div style={{ marginBottom: 2 }} ><FaMapMarker color="#ff9334" /> {val.branchAddress.substring(0, 60)}...</div>
-                                        <div style={{ fontSize: 10, fontFamily: "cursive" }}> ({calcCrow(val.latitude, val.longitude, latitude, longitude)}km away)</div>
-                                        {/* <div className="fooddeliveryprice">{val.restCategories[0]}</div>*/}
+                                    <div className="cartitemdiv">
+                                        <img src={val.branchImg} className="cartitemimage" />
+                                        <div className="itemcartcontent">
+                                            <div style={{ fontWeight: "bold", fontFamily: "monospace", fontSize: 20 }}>{val?.branch}</div>
+                                            <div style={{ fontFamily: "monospace" }}><b>Delivery address: </b>{val?.deliveryAddress}</div>
+                                            <div style={{ fontFamily: "monospace" }}><b>Status: </b>{val?.orderStatus}</div>
+                                        </div>
+                                        <div className="cartitemprice">
+                                            <button className="seedetailsbutton">SEE DETAILS</button>
+                                        </div>
                                     </div>
                                 )
-                            })}
+                            })
+                        }
 
-                        </div>
-                        : <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
+                        {error && < h5 align="middle" style={{ color: "red" }}>{error}</h5>}
+                        {loading && <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
+
+
+                    </div>
                 </div>
-            }
-            {error && < h5 align="middle" style={{ color: "red" }}>{error}</h5>}
-            {loading && <div style={{ marginLeft: "40%" }}><ReactLoading type={type} color={color} height={200} width={100} /></div>}
+            </div>
 
         </div>
     )
 }
 
-export default Viewmenumeals;
+export default Myorders;

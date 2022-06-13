@@ -141,7 +141,9 @@ const Mycart = () => {
 
         if (!deliveryaddress) {
             seterror("Choose a delivery address")
-        } else {
+        } else if(cartitems.length < 1){
+            seterror("No item shopped in cart")
+        }else {
             setloading(true)
             const insertfoodorderref = collection(db, "orders");
             var countList = cartitems.reduce(function (p, c) {
@@ -184,7 +186,8 @@ const Mycart = () => {
                         fromMenu: result[0].menu,
                         fromMenuId: result[0].menuId,
                         total: total,
-                        subtotal: total
+                        subtotal: total,
+                        orderStatus: "New"
                     });
 
                     if (add) { 
@@ -214,6 +217,9 @@ const Mycart = () => {
                                 });
                                 if (!add2) {
                                     seterror("added succesfully")
+                                    setcartSession('');
+                                    setcartSessionno('')
+                                    navigate("/myorders")
                                     setloading(false)
                                 } else {
                                     setloading(false)
@@ -261,6 +267,7 @@ const Mycart = () => {
                         fromMenuId: result2[0].menuId,
                         total: result2[0].itemprice,
                         subtotal: result2[0].itemprice,
+                        orderStatus: "New"
                     });
 
                     if (add) { 
@@ -289,6 +296,9 @@ const Mycart = () => {
                                 });
                                 if (!add2) {
                                     seterror("added succesfully")
+                                    setcartSession('');
+                                    setcartSessionno('')
+                                    navigate("/myorders")
                                     setloading(false)
                                 } else {
                                     setloading(false)
@@ -352,7 +362,7 @@ const Mycart = () => {
                         <div className="sidewrap2">
                             <div className="sidelinks">
                                 <div><FaUser className="link-icons" /> Profile details</div>
-                                <div><FaClock className="link-icons" />My Orders</div>
+                                <div onClick={()=>navigate("/myorders")} ><FaClock className="link-icons" />My Orders</div>
                                 <div><FaFacebookMessenger className="link-icons" />My chats</div>
                                 <div><FaIdCard className="link-icons" />Payment details</div>
                                 <div><FaLocationArrow className="link-icons" />Delivery Address</div>
@@ -506,7 +516,11 @@ const Mycart = () => {
                     <br />
                     <hr style={{ fontSize: 0.5 }} color="#d3d1cd" />
                     <br />
-                    <FaUserCheck size={20} color="#ff9334" style={{ marginRight: 5 }} /> Dot Delivery<br /><br />
+                    <FaUserCheck size={20} color="#ff9334" style={{ marginRight: 5 }} /> Dot Delivery<br /><br /><br />
+                    Delivery address
+                    <Select menuPlacement="top" options={addresses} defaultValue={addresses[0]} onChange={e => setdeliveryaddress(e.value)} />
+                    {loading && <ReactLoading type={type} color={color} height={50} width={50} />}
+                    {error && <div style={{ color: "red" }}>{error}</div>}
                     <br />
                     <button className="checkoutbutton" onClick={checkoutcart}>CHECKOUT BWP {cartsum}</button>
                     <br />

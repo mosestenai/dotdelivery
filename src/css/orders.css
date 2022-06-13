@@ -1,0 +1,45 @@
+.ordersdiv {
+    background-color: rgb(226, 225, 225);
+    padding: 20px;
+    width: 80%;
+}
+
+.sidenavdivorders {
+    width: 28%;
+    margin-right: 20px;
+    padding: 10px;
+    background-color: rgb(226, 225, 225);
+}
+.sidenavdivorders div {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.sidenavdivorders div:hover {
+    background-color: white;
+    color: #ff9334;
+}
+.sidenavdivorders button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(226, 225, 225);
+    color: #ff9334;
+    font-weight: bold;
+    align-items: center;
+    border:none;
+}
+.seedetailsbutton{
+    background-color: rgb(226, 225, 225);
+    color: #ff9334;
+    cursor: pointer;
+    align-items: center;
+    font-size: 15px;
+    border:none;
+}
+
+/* mobile view*/
+@media only screen and (max-width : 780px) {
+    .sidenavdivorders {
+   display: none;
+    }
+}

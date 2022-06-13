@@ -175,7 +175,7 @@ const Fetchfoods = () => {
                         <div className="sidewrap2">
                             <div className="sidelinks">
                                 <div><FaUser className="link-icons" /> Profile details</div>
-                                <div><FaClock className="link-icons" />My Orders</div>
+                                <div  onClick={()=>navigate("/myorders")} ><FaClock className="link-icons" />My Orders</div>
                                 <div><FaFacebookMessenger className="link-icons" />My chats</div>
                                 <div><FaIdCard className="link-icons" />Payment details</div>
                                 <div><FaLocationArrow className="link-icons" />Delivery Address</div>

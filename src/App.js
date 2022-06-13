@@ -9,6 +9,7 @@ import Fetchfoods from "./pages/Account/fetchfoods";
 import Viewmenumeals from "./pages/Account/viewmenumeals";
 import Viewbranch from "./pages/Account/viewbranch";
 import Mycart from "./pages/Account/cart";
+import Myorders from "./pages/Account/myorders";
 
 
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/viewmenumeal" element={<Viewmenumeals/>} exact/>
           <Route path="/viewbranch" element={<Viewbranch/>} exact/>
           <Route path="/mycart" element={<Mycart/>} exact />
+          <Route path="/myorders" element={<Myorders/>} exact />
         </Routes>
       </div>
 
