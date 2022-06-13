@@ -65,6 +65,12 @@
 .userratingdiv {
     padding: 10px;
     display: flex;
+    margin:5px;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 1px #ff9334;
+}
+.userratingdiv:hover{
+    box-shadow: 2px 3px 8px 8px #ff9334;
 }
 
 .viewallreviewsbutton {

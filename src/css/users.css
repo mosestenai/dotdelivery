@@ -182,6 +182,11 @@
     width: 20%;
     cursor: pointer;
     margin: 2%;
+
+}
+.foods:hover{
+    box-shadow: 1px 1px 8px 1px #ff9334;
+    padding: 1px;
 }
 
 
