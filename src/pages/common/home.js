@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaBeer, FaBars, FaTimes, FaAndroid } from 'react-icons/fa';
 import ReactLoading from 'react-loading';
 import { useNavigate } from 'react-router-dom';
-import {getLocalStorageUser} from "./../Utils/common";
-let color = "#ff9334";
+import { getLocalStorageUser } from "./../Utils/common";
+let color = "white";
 let type = "spinningBubbles";
 
 
@@ -12,7 +12,7 @@ const Home = () => {
 
     const user = getLocalStorageUser();
     const navigate = useNavigate();
-    if(user){
+    if (user) {
         navigate("./fetchfoods")
     }
 
@@ -34,6 +34,7 @@ const Home = () => {
     const [displaysidenav, setdisplaysidenav] = useState(false);
     const [scroll, setscroll] = useState('auto');
     const [show, setshow] = useState(1);
+    const [loading, setloading] = useState(false);
 
 
     document.body.style.overflow = scroll
@@ -57,8 +58,8 @@ const Home = () => {
                             setscroll('auto')
                             setdisplaysidenav(false)
                         }} />
-                        <button className="sidelogin" onClick={()=>navigate('/login')}>LOGIN</button><br /><br />
-                        <button className="sidesignup" onClick={()=>navigate('/signup')}>SIGN UP</button><br /><br />
+                        <button className="sidelogin" onClick={() => navigate('/login')}>LOGIN</button><br /><br />
+                        <button className="sidesignup" onClick={() => navigate('/signup')}>SIGN UP</button><br /><br />
                         <div className="sidewrap">
                             <div className="sidelinks">
                                 <div >Create a business account</div>
@@ -80,11 +81,11 @@ const Home = () => {
                     setscroll('hidden')
                     setdisplaysidenav(true)
                 }} />
-                <button className="loginbutton" onClick={()=>navigate('/login')}>Login</button>
-                <button className="signupbutton" onClick={()=>navigate('/signup')}>Sign up</button>
+                <button className="loginbutton" onClick={() => navigate('/login')}>Login</button>
+                <button className="signupbutton" onClick={() => navigate('/signup')}>Sign up</button>
             </div>
 
-           
+
             <div>
                 <p className="favourite">Your favourite food <br />
                     <font color="#ff9334">delivery</font> partner</p>
@@ -99,8 +100,20 @@ const Home = () => {
                     </p>
                     <div className="wrapform">
                         <input type="text" className="deliverylocationinput" placeholder="Enter your delivery location" />
-                        <button className="locateme" onClick={()=>navigate("/fetchfoods")}>LOCATE ME</button>
-                        <button className="searchfoodbutton"  onClick={()=>navigate("/fetchfoods")}>FIND FOOD</button>
+                        <button className="locateme" onClick={() => {
+                            setloading(true)
+                            setTimeout(() => {
+                                navigate("/fetchfoods")
+                                setloading(false)
+                            }, 5000);
+                        }}>LOCATE ME</button>
+                        <button className="searchfoodbutton" onClick={() => {
+                            setloading(true)
+                            setTimeout(() => {
+                                navigate("/fetchfoods")
+                                setloading(false)
+                            }, 5000);
+                        }}>{loading ? <ReactLoading type={type} color={color} height={50} width={50} /> : "FIND FOOD"}</button>
                     </div>
                 </div>
             </div>
@@ -158,7 +171,7 @@ const Home = () => {
             </div>
 
         </div>
-       
+
     )
 
 }
